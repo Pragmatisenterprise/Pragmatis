@@ -18,7 +18,7 @@ Sitio web corporativo de una empresa de soluciones de software: landing de una s
 
 ---
 
-## 📌 Tabla de contenidos
+##  Tabla de contenidos
 
 - [Sobre el proyecto](#-sobre-el-proyecto)
 - [Estado actual](#-estado-actual)
@@ -33,7 +33,7 @@ Sitio web corporativo de una empresa de soluciones de software: landing de una s
 
 ---
 
-## 🎯 Sobre el proyecto
+##  Sobre el proyecto
 
 Webemp es la web de presentación de una empresa de **soluciones de software a medida**: plataformas web, automatización, integraciones y cloud. El nombre es provisional y se cambiará cuando la empresa tenga uno definitivo (vive en un solo archivo, ver [Personalización](#-personalización)).
 
@@ -43,7 +43,7 @@ El diseño parte de una plantilla de landing SaaS oscura (secciones alternadas e
 - **Responsive.** Cada sección se revisa a 390 px de ancho: el hero se compacta, los espaciados y títulos se reducen y el menú pasa a hamburguesa.
 - **Sin dependencias pesadas.** Sin backend, sin base de datos y sin librería de componentes: solo React, Tailwind y animaciones de entrada.
 
-## 🚦 Estado actual
+##  Estado actual
 
 **En desarrollo activo.** La landing está completa y compila; el contenido (textos, cifras, testimonios y artículos) es de ejemplo y falta reemplazarlo por el real.
 
@@ -59,7 +59,7 @@ El diseño parte de una plantilla de landing SaaS oscura (secciones alternadas e
 | Blog con artículos reales y páginas internas | ⏳ Pendiente — hoy son tarjetas de ejemplo |
 | SEO / Open Graph, analítica y despliegue | ⏳ Pendiente |
 
-## 🏗️ Arquitectura
+##  Arquitectura
 
 ```mermaid
 flowchart LR
@@ -88,7 +88,7 @@ flowchart LR
 
 Todo se renderiza en el cliente y no hay llamadas de red: el resultado de `npm run build` es un sitio estático que se puede servir desde cualquier hosting.
 
-## ✨ Características
+##  Características
 
 <table>
 <tr>
@@ -117,7 +117,7 @@ Todo se renderiza en el cliente y no hay llamadas de red: el resultado de `npm r
 </tr>
 </table>
 
-## 🛠️ Stack técnico
+##  Stack técnico
 
 | Categoría | Tecnología |
 |---|---|
@@ -130,7 +130,7 @@ Todo se renderiza en el cliente y no hay llamadas de red: el resultado de `npm r
 | **`<head>` / SEO** | React Helmet Async |
 | **Calidad** | ESLint 9 + `typescript-eslint`, y `tsc --noEmit` en cada build |
 
-## 📁 Estructura del proyecto
+##  Estructura del proyecto
 
 ```
 webemp/
@@ -159,7 +159,7 @@ webemp/
 └── vite.config.ts
 ```
 
-## 🚀 Instalación rápida
+##  Instalación rápida
 
 > Requiere Node ≥ 20.
 
@@ -180,7 +180,7 @@ npm run build
 npm run preview
 ```
 
-## 🎨 Personalización
+##  Personalización
 
 - **Nombre, correo, dirección y menú:** `src/config/site.ts`. Al definir el nombre de la empresa, cambiar también el `<title>` y la descripción de `index.html`.
 - **Colores y animaciones:** `tailwind.config.ts` (`ink`, `violet`, `emerald`, `orchid`, `blush`…).
