@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🧩 Webemp
+# 🧩 Pragmatis
 
 **Software que mueve tu negocio.**
 
@@ -18,7 +18,7 @@ Sitio web corporativo de una empresa de soluciones de software: landing de una s
 
 ---
 
-##  Tabla de contenidos
+## Tabla de contenidos
 
 - [Sobre el proyecto](#-sobre-el-proyecto)
 - [Estado actual](#-estado-actual)
@@ -33,17 +33,17 @@ Sitio web corporativo de una empresa de soluciones de software: landing de una s
 
 ---
 
-##  Sobre el proyecto
+## Sobre el proyecto
 
-Webemp es la web de presentación de una empresa de **soluciones de software a medida**: plataformas web, automatización, integraciones y cloud. El nombre es provisional y se cambiará cuando la empresa tenga uno definitivo (vive en un solo archivo, ver [Personalización](#-personalización)).
+Pragmatis es la web de presentación de una empresa de **soluciones de software a medida**: plataformas web, automatización, integraciones y cloud. El nombre de la marca vive en un solo archivo (ver [Personalización](#-personalización)).
 
 El diseño parte de una plantilla de landing SaaS oscura (secciones alternadas en negro y blanco, degradados y mucho espacio en blanco), reconstruida desde cero con el contenido adaptado a una empresa de software:
 
 - **Una sola página, secciones claras.** Servicios, plataforma, seguridad, testimonios, blog y contacto, navegables desde el menú con scroll suave.
 - **Responsive.** Cada sección se revisa a 390 px de ancho: el hero se compacta, los espaciados y títulos se reducen y el menú pasa a hamburguesa.
-- **Sin dependencias pesadas.** Sin backend, sin base de datos y sin librería de componentes: solo React, Tailwind y animaciones de entrada.
+- **Ligero.** Sin base de datos ni librería de componentes: React, Tailwind y animaciones de entrada. El único backend son dos funciones serverless que envían correo con Resend.
 
-##  Estado actual
+## Estado actual
 
 **En desarrollo activo.** La landing está completa y compila; el contenido (textos, cifras, testimonios y artículos) es de ejemplo y falta reemplazarlo por el real.
 
@@ -54,12 +54,15 @@ El diseño parte de una plantilla de landing SaaS oscura (secciones alternadas e
 | Diseño responsive (móvil, tablet y escritorio) | ✅ Listo |
 | Animaciones de entrada (respetan `prefers-reduced-motion`) | ✅ Listo |
 | Configuración centralizada de marca (`src/config/site.ts`) | ✅ Listo |
-| Contenido real, nombre definitivo y logo | ⏳ Pendiente |
-| Formulario de contacto y newsletter con backend | ⏳ Pendiente — hoy el newsletter solo confirma en pantalla |
+| Nombre de marca (Pragmatis) | ✅ Listo |
+| Formulario de contacto + newsletter (`/api/contact`, `/api/subscribe` con Resend) | ✅ Listo en código — falta configurar las claves y desplegar |
+| SEO básico: Open Graph, `robots.txt`, `sitemap.xml` | ✅ Listo — falta cambiar `og-image.svg` por un PNG 1200×630 y confirmar el dominio |
+| CI (lint + build en cada push/PR) | ✅ Listo |
+| Logo definitivo y contenido real | ⏳ Pendiente |
 | Blog con artículos reales y páginas internas | ⏳ Pendiente — hoy son tarjetas de ejemplo |
-| SEO / Open Graph, analítica y despliegue | ⏳ Pendiente |
+| Despliegue, dominio y analítica | ⏳ Pendiente |
 
-##  Arquitectura
+## Arquitectura
 
 ```mermaid
 flowchart LR
@@ -75,6 +78,12 @@ flowchart LR
         FOOTER["Footer\nCTA + newsletter"]
     end
 
+    subgraph Serverless["☁️ api/ — funciones serverless"]
+        CONTACT["/api/contact"]
+        SUB["/api/subscribe"]
+    end
+    RESEND["📧 Resend\nAPI de correo"]
+
     CONF["📦 config/site.ts\nnombre · correo · menú"]
     REVEAL["✨ Reveal\nanimación de entrada"]
     TW["🎨 Tailwind\ntokens de color y animaciones"]
@@ -84,11 +93,13 @@ flowchart LR
     CONF -.-> HEADER & HERO & FOOTER
     REVEAL -.-> SECS
     TW -.-> App
+    FOOTER -->|fetch JSON| CONTACT & SUB
+    CONTACT & SUB -->|RESEND_API_KEY| RESEND
 ```
 
-Todo se renderiza en el cliente y no hay llamadas de red: el resultado de `npm run build` es un sitio estático que se puede servir desde cualquier hosting.
+El front es estático (`dist/`). Las claves de Resend solo existen en las funciones de `api/`, nunca llegan al navegador; por eso no llevan prefijo `VITE_`.
 
-##  Características
+## Características
 
 <table>
 <tr>
@@ -100,7 +111,7 @@ Todo se renderiza en el cliente y no hay llamadas de red: el resultado de `npm r
 - Hero con tarjetas, orbe animado y gráfica en SVG/CSS (sin imágenes pesadas)
 - Paleta propia en `tailwind.config.ts`: negro, violeta, esmeralda, orquídea y rosa
 - Tipografía Inter Tight, cargada desde Google Fonts
-- Favicon en SVG
+- Favicon y tarjeta Open Graph en SVG
 
 </td>
 <td valign="top" width="50%">
@@ -112,12 +123,13 @@ Todo se renderiza en el cliente y no hay llamadas de red: el resultado de `npm r
 - Pestañas de capacidades con `role="tablist"`
 - Banda de integraciones en bucle continuo
 - Animaciones de entrada por sección, desactivadas si el usuario lo pide
+- Formulario de contacto con validación, campo trampa anti-bots y estados de envío/error
 
 </td>
 </tr>
 </table>
 
-##  Stack técnico
+## Stack técnico
 
 | Categoría | Tecnología |
 |---|---|
@@ -128,14 +140,20 @@ Todo se renderiza en el cliente y no hay llamadas de red: el resultado de `npm r
 | **Animaciones** | Framer Motion |
 | **Iconos** | Lucide React |
 | **`<head>` / SEO** | React Helmet Async |
-| **Calidad** | ESLint 9 + `typescript-eslint`, y `tsc --noEmit` en cada build |
+| **Correo y newsletter** | [Resend](https://resend.com/) (API REST, sin SDK) |
+| **Funciones serverless** | Carpeta `api/` con handlers web estándar (formato de Vercel Functions) |
+| **Calidad** | ESLint 9 + `typescript-eslint`, `tsc --noEmit` en cada build y GitHub Actions |
 
-##  Estructura del proyecto
+## Estructura del proyecto
 
 ```
-webemp/
-├── public/
-│   └── favicon.svg
+pragmatis/
+├── api/
+│   ├── contact.ts          # POST: envía el mensaje de contacto
+│   ├── subscribe.ts        # POST: alta en la audiencia del newsletter
+│   └── _utils.ts
+├── .github/workflows/ci.yml
+├── public/                 # favicon, og-image, robots.txt, sitemap.xml
 ├── src/
 │   ├── components/
 │   │   ├── Header.tsx          # menú fijo + hamburguesa móvil
@@ -146,20 +164,24 @@ webemp/
 │   │   ├── Security.tsx
 │   │   ├── Testimonials.tsx
 │   │   ├── Blog.tsx
-│   │   ├── Footer.tsx          # CTA final + newsletter
+│   │   ├── ContactForm.tsx
+│   │   ├── Footer.tsx          # contacto + newsletter
 │   │   ├── Logo.tsx
 │   │   └── Reveal.tsx          # animación de entrada reutilizable
 │   ├── config/site.ts          # nombre, correo, dirección y menú
-│   ├── lib/utils.ts            # helper cn() (clsx + tailwind-merge)
+│   ├── lib/
+│   │   ├── utils.ts            # helper cn() (clsx + tailwind-merge)
+│   │   └── api.ts              # postJson() hacia /api/*
 │   ├── App.tsx
 │   ├── main.tsx
 │   └── index.css               # capas de Tailwind + botones base
+├── .env.example
 ├── index.html
 ├── tailwind.config.ts
 └── vite.config.ts
 ```
 
-##  Instalación rápida
+## Instalación rápida
 
 > Requiere Node ≥ 20.
 
@@ -180,16 +202,29 @@ npm run build
 npm run preview
 ```
 
-##  Personalización
+`npm run dev` solo sirve el front; para probar el formulario en local hace falta `vercel dev` (sirve también `api/`).
 
-- **Nombre, correo, dirección y menú:** `src/config/site.ts`. Al definir el nombre de la empresa, cambiar también el `<title>` y la descripción de `index.html`.
+## Variables de entorno
+
+Copiar `.env.example` a `.env` (local) y cargarlas también en el panel del hosting. Son **solo de servidor**.
+
+| Variable | Para qué |
+|---|---|
+| `RESEND_API_KEY` | Clave de la API de Resend |
+| `CONTACT_FROM` | Remitente, con un dominio verificado en Resend |
+| `CONTACT_TO` | Buzón donde llegan los mensajes del formulario |
+| `RESEND_AUDIENCE_ID` | Audiencia de Resend para el newsletter |
+
+## Personalización
+
+- **Nombre, correo, URL, dirección y menú:** `src/config/site.ts`. El `<title>` y las metaetiquetas viven en `index.html`.
 - **Colores y animaciones:** `tailwind.config.ts` (`ink`, `violet`, `emerald`, `orchid`, `blush`…).
 - **Textos de cada sección:** arreglos al inicio de cada componente en `src/components/`.
 - **Logo:** `src/components/Logo.tsx` y `public/favicon.svg`.
 
-## ☁️ Despliegue
+## Despliegue
 
-El build es estático (`dist/`), así que sirve cualquier hosting: Vercel, Netlify, Cloudflare Pages o GitHub Pages. Configuración típica:
+Se recomienda **Vercel**: sirve el front estático y ejecuta `api/` sin configuración extra. Ajustes:
 
 | Ajuste | Valor |
 |---|---|
@@ -197,14 +232,14 @@ El build es estático (`dist/`), así que sirve cualquier hosting: Vercel, Netli
 | Directorio de salida | `dist` |
 | Versión de Node | 20 o superior |
 
-## 🔭 Próximos pasos
+## Próximos pasos
 
-- [ ] Elegir el nombre definitivo y el logo
+- [x] Nombre de marca, formulario de contacto, newsletter, SEO básico y CI
+- [ ] Registrar el dominio, verificarlo en Resend y desplegar en Vercel
+- [ ] Diseñar el logo definitivo y una imagen Open Graph en PNG
 - [ ] Reemplazar textos, cifras, testimonios y artículos de ejemplo por contenido real
-- [ ] Conectar el formulario de contacto y el newsletter a un servicio de correo
 - [ ] Crear páginas internas (servicios, casos de éxito, blog con artículos)
-- [ ] SEO: metadatos Open Graph, `sitemap.xml` y `robots.txt`
-- [ ] Añadir CI (lint + build en cada push/PR) y desplegar
+- [ ] Analítica respetuosa con la privacidad (Plausible o similar) y límite de peticiones por IP en `api/`
 
 ---
 
