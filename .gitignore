@@ -25,3 +25,5 @@ dist-ssr
 *.sw?
 
 *.tsbuildinfo
+.dev.vars
+.wrangler

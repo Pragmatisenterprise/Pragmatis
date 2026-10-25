@@ -41,7 +41,7 @@ El diseño parte de una plantilla de landing SaaS oscura (secciones alternadas e
 
 - **Una sola página, secciones claras.** Servicios, plataforma, seguridad, testimonios, blog y contacto, navegables desde el menú con scroll suave.
 - **Responsive.** Cada sección se revisa a 390 px de ancho: el hero se compacta, los espaciados y títulos se reducen y el menú pasa a hamburguesa.
-- **Ligero.** Sin base de datos ni librería de componentes: React, Tailwind y animaciones de entrada. El único backend son dos funciones serverless que envían correo con Resend.
+- **Ligero.** Sin base de datos ni librería de componentes: React, Tailwind y animaciones de entrada. El único backend es un Worker de Cloudflare con dos rutas que envían correo con Resend.
 
 ## Estado actual
 
@@ -55,7 +55,7 @@ El diseño parte de una plantilla de landing SaaS oscura (secciones alternadas e
 | Animaciones de entrada (respetan `prefers-reduced-motion`) | ✅ Listo |
 | Configuración centralizada de marca (`src/config/site.ts`) | ✅ Listo |
 | Nombre de marca (Pragmatis) | ✅ Listo |
-| Formulario de contacto + newsletter (`/api/contact`, `/api/subscribe` con Resend) | ✅ Listo en código — falta configurar las claves y desplegar |
+| Formulario de contacto + newsletter (Worker de Cloudflare + Resend) | ✅ Listo en código — falta configurar las claves y desplegar en Cloudflare |
 | SEO básico: Open Graph, `robots.txt`, `sitemap.xml` | ✅ Listo — falta cambiar `og-image.svg` por un PNG 1200×630 y confirmar el dominio |
 | CI (lint + build en cada push/PR) | ✅ Listo |
 | Logo definitivo y contenido real | ⏳ Pendiente |
@@ -78,7 +78,7 @@ flowchart LR
         FOOTER["Footer\nCTA + newsletter"]
     end
 
-    subgraph Serverless["☁️ api/ — funciones serverless"]
+    subgraph Serverless["☁️ worker/ — Cloudflare Worker"]
         CONTACT["/api/contact"]
         SUB["/api/subscribe"]
     end
@@ -97,7 +97,7 @@ flowchart LR
     CONTACT & SUB -->|RESEND_API_KEY| RESEND
 ```
 
-El front es estático (`dist/`). Las claves de Resend solo existen en las funciones de `api/`, nunca llegan al navegador; por eso no llevan prefijo `VITE_`.
+El front es estático (`dist/`). Las claves de Resend solo existen en el Worker (`worker/`), nunca llegan al navegador; por eso no llevan prefijo `VITE_`.
 
 ## Características
 
@@ -141,17 +141,18 @@ El front es estático (`dist/`). Las claves de Resend solo existen en las funcio
 | **Iconos** | Lucide React |
 | **`<head>` / SEO** | React Helmet Async |
 | **Correo y newsletter** | [Resend](https://resend.com/) (API REST, sin SDK) |
-| **Funciones serverless** | Carpeta `api/` con handlers web estándar (formato de Vercel Functions) |
+| **Hosting y backend** | Cloudflare Workers con Static Assets (`wrangler`); un solo despliegue sirve el front y `/api/*` |
 | **Calidad** | ESLint 9 + `typescript-eslint`, `tsc --noEmit` en cada build y GitHub Actions |
 
 ## Estructura del proyecto
 
 ```
 pragmatis/
-├── api/
+├── worker/
+│   ├── index.ts            # enruta /api/* y sirve el front estático
 │   ├── contact.ts          # POST: envía el mensaje de contacto
 │   ├── subscribe.ts        # POST: alta en la audiencia del newsletter
-│   └── _utils.ts
+│   └── utils.ts
 ├── .github/workflows/ci.yml
 ├── public/                 # favicon, og-image, robots.txt, sitemap.xml
 ├── src/
@@ -175,7 +176,8 @@ pragmatis/
 │   ├── App.tsx
 │   ├── main.tsx
 │   └── index.css               # capas de Tailwind + botones base
-├── .env.example
+├── wrangler.jsonc          # configuración de Cloudflare
+├── .dev.vars.example
 ├── index.html
 ├── tailwind.config.ts
 └── vite.config.ts
@@ -202,18 +204,18 @@ npm run build
 npm run preview
 ```
 
-`npm run dev` solo sirve el front; para probar el formulario en local hace falta `vercel dev` (sirve también `api/`).
+`npm run dev` solo sirve el front. Para probar el formulario en local: copiar `.dev.vars.example` a `.dev.vars`, poner las claves y correr `npm run dev:worker` (http://localhost:8787).
 
 ## Variables de entorno
 
-Copiar `.env.example` a `.env` (local) y cargarlas también en el panel del hosting. Son **solo de servidor**.
+| Variable | Dónde | Para qué |
+|---|---|---|
+| `RESEND_API_KEY` | **Secreto** (`wrangler secret put RESEND_API_KEY`; en local, `.dev.vars`) | Clave de la API de Resend |
+| `RESEND_AUDIENCE_ID` | **Secreto** | Audiencia de Resend para el newsletter |
+| `CONTACT_FROM` | `vars` de `wrangler.jsonc` | Remitente, con un dominio verificado en Resend |
+| `CONTACT_TO` | `vars` de `wrangler.jsonc` | Buzón donde llegan los mensajes del formulario |
 
-| Variable | Para qué |
-|---|---|
-| `RESEND_API_KEY` | Clave de la API de Resend |
-| `CONTACT_FROM` | Remitente, con un dominio verificado en Resend |
-| `CONTACT_TO` | Buzón donde llegan los mensajes del formulario |
-| `RESEND_AUDIENCE_ID` | Audiencia de Resend para el newsletter |
+Las claves nunca van en el repo ni en variables del front (`VITE_*`).
 
 ## Personalización
 
@@ -224,22 +226,25 @@ Copiar `.env.example` a `.env` (local) y cargarlas también en el panel del host
 
 ## Despliegue
 
-Se recomienda **Vercel**: sirve el front estático y ejecuta `api/` sin configuración extra. Ajustes:
+Se despliega en **Cloudflare Workers** (el plan gratuito permite uso comercial). Un solo Worker sirve el front estático de `dist/` y atiende `/api/contact` y `/api/subscribe`.
 
-| Ajuste | Valor |
-|---|---|
-| Comando de build | `npm run build` |
-| Directorio de salida | `dist` |
-| Versión de Node | 20 o superior |
+```bash
+npx wrangler login                     # una sola vez
+npx wrangler secret put RESEND_API_KEY
+npx wrangler secret put RESEND_AUDIENCE_ID
+npm run deploy                         # compila y publica
+```
+
+También se puede conectar el repositorio desde el panel de Cloudflare (Workers Builds) para desplegar en cada push a `main`, con comando de build `npm run build` y de despliegue `npx wrangler deploy`. El dominio propio se asigna en el panel del Worker.
 
 ## Próximos pasos
 
 - [x] Nombre de marca, formulario de contacto, newsletter, SEO básico y CI
-- [ ] Registrar el dominio, verificarlo en Resend y desplegar en Vercel
+- [ ] Registrar el dominio, verificarlo en Resend y desplegar en Cloudflare
 - [ ] Diseñar el logo definitivo y una imagen Open Graph en PNG
 - [ ] Reemplazar textos, cifras, testimonios y artículos de ejemplo por contenido real
 - [ ] Crear páginas internas (servicios, casos de éxito, blog con artículos)
-- [ ] Analítica respetuosa con la privacidad (Plausible o similar) y límite de peticiones por IP en `api/`
+- [ ] Analítica respetuosa con la privacidad (Plausible o similar) y límite de peticiones por IP en el Worker
 
 ---
 

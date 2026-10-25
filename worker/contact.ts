@@ -1,6 +1,6 @@
-import { escapeHtml, isEmail, json, readJson } from "./_utils";
+import { escapeHtml, isEmail, json, readJson, type Env } from "./utils";
 
-export async function POST(request: Request) {
+export async function contact(request: Request, env: Env) {
   const body = await readJson(request);
   if (!body) return json({ error: "Solicitud inválida" }, 400);
 
@@ -13,7 +13,7 @@ export async function POST(request: Request) {
   if (!isEmail(body.email)) return json({ error: "Correo inválido" }, 400);
   if (message.length < 10 || message.length > 4000) return json({ error: "Mensaje inválido" }, 400);
 
-  const { RESEND_API_KEY, CONTACT_FROM, CONTACT_TO } = process.env;
+  const { RESEND_API_KEY, CONTACT_FROM, CONTACT_TO } = env;
   if (!RESEND_API_KEY || !CONTACT_FROM || !CONTACT_TO) return json({ error: "Servicio no configurado" }, 500);
 
   const res = await fetch("https://api.resend.com/emails", {

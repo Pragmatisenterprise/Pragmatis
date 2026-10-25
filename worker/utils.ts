@@ -1,3 +1,11 @@
+export interface Env {
+  ASSETS: Fetcher;
+  RESEND_API_KEY?: string;
+  CONTACT_FROM?: string;
+  CONTACT_TO?: string;
+  RESEND_AUDIENCE_ID?: string;
+}
+
 export const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { "content-type": "application/json" } });
 

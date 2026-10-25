@@ -1,0 +1,3 @@
+# Copiar a .dev.vars para desarrollo local con `npm run dev:worker` (no se sube a git)
+RESEND_API_KEY=
+RESEND_AUDIENCE_ID=
