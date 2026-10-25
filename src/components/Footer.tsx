@@ -8,9 +8,9 @@ export function Footer() {
   const onSubmit = (e: FormEvent) => { e.preventDefault(); setSent(true); };
   return (
     <>
-      <section id="contacto" className="bg-black py-28 text-center text-white">
+      <section id="contacto" className="bg-black py-16 md:py-28 text-center text-white">
         <Reveal className="container">
-          <h2 className="mx-auto max-w-2xl text-4xl font-semibold tracking-tight md:text-6xl">¿Listo para construir tu próximo software?</h2>
+          <h2 className="mx-auto max-w-2xl text-3xl font-semibold tracking-tight md:text-6xl">¿Listo para construir tu próximo software?</h2>
           <p className="mx-auto mt-5 max-w-md text-white/60">Desde startups que lanzan su primer producto hasta empresas que escalan globalmente.</p>
           <a href={`mailto:${site.email}`} className="btn-primary mt-8">Hablemos de tu proyecto</a>
         </Reveal>

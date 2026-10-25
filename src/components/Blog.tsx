@@ -9,12 +9,12 @@ const posts = [
 
 export function Blog() {
   return (
-    <section id="blog" className="bg-mist py-28">
+    <section id="blog" className="bg-mist py-16 md:py-28">
       <div className="container">
         <Reveal className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-sm font-medium text-violet">Blog</p>
-            <h2 className="mt-3 text-4xl font-semibold tracking-tight">Artículos para equipos y emprendedores</h2>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-4xl">Artículos para equipos y emprendedores</h2>
           </div>
           <a href="#blog" className="btn-dark">Ver todos</a>
         </Reveal>

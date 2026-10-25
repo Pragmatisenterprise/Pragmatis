@@ -24,11 +24,11 @@ export function Platform() {
   const tab = tabs.find((t) => t.id === active)!;
   return (
     <>
-      <section id="plataforma" className="bg-black py-28 text-white">
+      <section id="plataforma" className="bg-black py-16 md:py-28 text-white">
         <div className="container grid items-center gap-14 lg:grid-cols-2">
           <Reveal>
             <p className="text-sm font-medium text-violet-glow">Plataforma</p>
-            <h2 className="mt-3 max-w-md text-4xl font-semibold tracking-tight">Todo en un solo panel seguro.</h2>
+            <h2 className="mt-3 max-w-md text-3xl font-semibold tracking-tight md:text-4xl">Todo en un solo panel seguro.</h2>
             <div className="mt-10 grid gap-8 sm:grid-cols-2">
               {points.map((p) => (
                 <div key={p.title}>
@@ -54,7 +54,7 @@ export function Platform() {
         </div>
       </section>
 
-      <section className="py-28">
+      <section className="py-16 md:py-28">
         <div className="container">
           <Reveal>
             <div role="tablist" aria-label="Capacidades" className="mx-auto flex max-w-fit flex-wrap justify-center gap-2 rounded-2xl bg-mist p-1.5">
@@ -71,7 +71,7 @@ export function Platform() {
               <a href="#contacto" className="btn-dark mt-6">Hablemos</a>
             </div>
           </Reveal>
-          <div className="mt-20 overflow-hidden" aria-label="Integraciones">
+          <div className="mt-12 overflow-hidden md:mt-20" aria-label="Integraciones">
             <p className="mb-8 text-center text-sm text-charcoal/50">Conectamos con tus plataformas favoritas</p>
             <div className="flex w-max animate-marquee gap-12 text-2xl font-semibold text-charcoal/30">
               {[...logos, ...logos].map((l, i) => <span key={i}>{l}</span>)}

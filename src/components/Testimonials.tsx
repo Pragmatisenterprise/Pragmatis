@@ -11,11 +11,11 @@ const items = [
 
 export function Testimonials() {
   return (
-    <section className="py-28">
+    <section className="py-16 md:py-28">
       <div className="container">
         <Reveal>
           <p className="text-center text-sm font-medium text-violet">Testimonios</p>
-          <h2 className="mx-auto mt-3 max-w-lg text-center text-4xl font-semibold tracking-tight">Pensado para empresas que valoran software seguro y bien hecho</h2>
+          <h2 className="mx-auto mt-3 max-w-lg text-center text-3xl font-semibold tracking-tight md:text-4xl">Pensado para empresas que valoran software seguro y bien hecho</h2>
         </Reveal>
         <div className="mt-14 columns-1 gap-4 md:columns-3">
           {items.map((t, i) => (

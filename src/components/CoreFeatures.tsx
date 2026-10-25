@@ -4,7 +4,7 @@ import { Reveal } from "./Reveal";
 import { cn } from "@/lib/utils";
 
 function Mock({ children, tint }: { children: ReactNode; tint: string }) {
-  return <div className={cn("flex min-h-[320px] items-center justify-center rounded-4xl p-8", tint)}>{children}</div>;
+  return <div className={cn("flex min-h-[240px] items-center justify-center rounded-3xl p-5 md:min-h-[320px] md:rounded-4xl md:p-8", tint)}>{children}</div>;
 }
 
 const rows = [
@@ -15,16 +15,16 @@ const rows = [
 
 export function CoreFeatures() {
   return (
-    <section className="pb-28">
+    <section className="pb-16 md:pb-28">
       <div className="container">
         <Reveal>
           <p className="text-center text-sm font-medium text-violet">Servicios clave</p>
-          <h2 className="mx-auto mt-3 max-w-xl text-center text-4xl font-semibold tracking-tight">
+          <h2 className="mx-auto mt-3 max-w-xl text-center text-3xl font-semibold tracking-tight md:text-4xl">
             Toma el control de tu desarrollo, de la idea al despliegue
           </h2>
           <div className="mt-6 text-center"><a href="#contacto" className="btn-dark">Empezar ahora</a></div>
         </Reveal>
-        <div className="mt-20 space-y-24">
+        <div className="mt-12 space-y-14 md:mt-20 md:space-y-24">
           {rows.map((r, i) => (
             <div key={r.title} className="grid items-center gap-10 md:grid-cols-2">
               <Reveal className={cn(i % 2 && "md:order-2")}>

@@ -10,19 +10,19 @@ const items = [
 
 export function Benefits() {
   return (
-    <section id="servicios" className="relative py-28">
+    <section id="servicios" className="relative py-16 md:py-28">
       <div className="container">
         <Reveal>
-          <h2 className="mx-auto max-w-lg text-center text-4xl font-semibold tracking-tight md:text-5xl">
+          <h2 className="mx-auto max-w-lg text-center text-3xl font-semibold tracking-tight md:text-4xl md:text-5xl">
             Soluciones rápidas, seguras <span className="text-charcoal/50">y flexibles</span>
           </h2>
         </Reveal>
-        <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid gap-3 md:mt-16 md:gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {items.map((it, i) => (
             <Reveal key={it.title} delay={i * 0.08}>
-              <div className="h-full rounded-3xl bg-mist p-6">
+              <div className="h-full rounded-3xl bg-mist p-5 md:p-6">
                 <span className={`flex h-10 w-10 items-center justify-center rounded-xl text-white ${it.tint}`}><it.icon size={18} /></span>
-                <h3 className="mt-10 text-lg font-semibold">{it.title}</h3>
+                <h3 className="mt-6 text-lg font-semibold md:mt-10">{it.title}</h3>
                 <p className="mt-2 text-sm text-charcoal/60">{it.text}</p>
               </div>
             </Reveal>

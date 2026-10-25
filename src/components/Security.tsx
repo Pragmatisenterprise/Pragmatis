@@ -9,11 +9,11 @@ const items = [
 
 export function Security() {
   return (
-    <section id="nosotros" className="bg-mist py-28">
+    <section id="nosotros" className="bg-mist py-16 md:py-28">
       <div className="container">
         <Reveal>
           <p className="text-sm font-medium text-violet">Seguridad</p>
-          <h2 className="mt-3 max-w-lg text-4xl font-semibold tracking-tight">Seguridad y confianza en cada entrega</h2>
+          <h2 className="mt-3 max-w-lg text-3xl font-semibold tracking-tight md:text-4xl">Seguridad y confianza en cada entrega</h2>
         </Reveal>
         <div className="mt-14 grid gap-4 md:grid-cols-3">
           {items.map((it, i) => (

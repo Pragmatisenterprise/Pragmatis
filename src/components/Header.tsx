@@ -15,7 +15,7 @@ export function Header() {
           ))}
         </nav>
         <a href="#contacto" className="btn-dark hidden bg-white/10 md:inline-flex">Empezar</a>
-        <button className="md:hidden" onClick={() => setOpen(!open)} aria-label="Menú" aria-expanded={open}>
+        <button className="-mr-2 p-2 md:hidden" onClick={() => setOpen(!open)} aria-label="Menú" aria-expanded={open}>
           {open ? <X /> : <Menu />}
         </button>
       </div>

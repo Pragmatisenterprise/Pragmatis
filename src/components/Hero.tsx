@@ -3,7 +3,7 @@ import { site } from "@/config/site";
 
 function CodeCard() {
   return (
-    <div className="w-[300px] -rotate-6 rounded-2xl border border-white/10 bg-gradient-to-br from-[#2a2a2e] to-[#0e0e10] p-5 text-left shadow-2xl">
+    <div className="w-[290px] max-w-full -rotate-6 -mb-6 md:mb-0 rounded-2xl border border-white/10 bg-gradient-to-br from-[#2a2a2e] to-[#0e0e10] p-5 text-left shadow-2xl">
       <div className="mb-4 flex items-center justify-between text-xs text-white/50">
         <Code2 size={18} /> <span>{site.name}</span>
       </div>
@@ -23,7 +23,7 @@ function CodeCard() {
 
 function Orb() {
   return (
-    <div className="relative h-[210px] w-[210px] animate-float" aria-hidden>
+    <div className="relative h-[170px] w-[170px] md:h-[210px] md:w-[210px] animate-float" aria-hidden>
       <div className="absolute inset-0 rounded-full bg-[conic-gradient(from_200deg,#5b3df5,#2fb98a,#8b74ff,#1a1a2e,#5b3df5)] shadow-[0_0_80px_rgba(91,61,245,.55)]" />
       <div className="absolute inset-5 rounded-full bg-gradient-to-br from-black/70 to-transparent ring-1 ring-white/20" />
       <div className="absolute inset-0 flex items-center justify-center text-white"><GitBranch size={64} strokeWidth={1.4} /></div>
@@ -33,7 +33,7 @@ function Orb() {
 
 function StatCard() {
   return (
-    <div className="w-[270px] rotate-3 rounded-2xl bg-white p-5 md:pl-9 text-left text-charcoal shadow-2xl">
+    <div className="w-[270px] max-w-full rotate-3 -mt-8 md:mt-0 rounded-2xl bg-white p-5 md:pl-9 text-left text-charcoal shadow-2xl">
       <div className="flex items-center gap-2 text-sm font-medium">
         <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-blush"><Activity size={16} /></span>
         {site.name}
@@ -50,25 +50,25 @@ function StatCard() {
 
 export function Hero() {
   return (
-    <section className="bg-black pb-24 pt-36 text-center text-white">
+    <section className="bg-black pb-16 pt-28 md:pb-24 md:pt-36 text-center text-white">
       <div className="container">
         <div className="flex flex-wrap items-center justify-center gap-3">
           <span className="eyebrow"><span className="h-1.5 w-1.5 rounded-full bg-violet-glow" />{site.tagline}</span>
           <span className="eyebrow">Más de <b className="text-white">+50</b> proyectos entregados</span>
         </div>
-        <h1 className="mx-auto mt-8 max-w-3xl text-5xl font-semibold tracking-tight md:text-7xl">
+        <h1 className="mx-auto mt-8 max-w-3xl text-[2.75rem] font-semibold leading-[1.05] tracking-tight md:text-7xl">
           Software que mueve tu negocio
         </h1>
-        <p className="mx-auto mt-6 max-w-xl text-lg text-white/60">
+        <p className="mx-auto mt-5 max-w-xl text-base text-white/60 md:mt-6 md:text-lg">
           Diseñamos, construimos y operamos plataformas web, automatizaciones e integraciones a la medida de tu empresa.
         </p>
         <div className="mt-8 flex items-center justify-center gap-2">
           <a href="#contacto" className="btn-primary">Solicitar una propuesta</a>
           <a href="#servicios" className="btn-ghost">Ver servicios</a>
         </div>
-        <div className="mt-16 flex flex-col items-center justify-center gap-8 md:flex-row md:gap-0">
+        <div className="mt-12 flex flex-col items-center justify-center md:mt-16 md:flex-row">
           <CodeCard />
-          <div className="md:-mx-3 md:z-10"><Orb /></div>
+          <div className="z-10 md:-mx-3"><Orb /></div>
           <StatCard />
         </div>
       </div>
