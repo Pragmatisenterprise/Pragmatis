@@ -1,8 +1,8 @@
 // Nombre provisional: cambiar aquí cuando se defina el de la empresa.
 export const site = {
   name: "Pragmatis",
-  email: "contacto@pragmatis.com",
-  url: "https://pragmatis.com",
+  email: "contacto@pragmatis.co",
+  url: "https://pragmatis.co",
   address: "Dirección por definir",
   tagline: "Soluciones de software a medida",
 };

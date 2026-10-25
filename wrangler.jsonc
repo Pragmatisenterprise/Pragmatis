@@ -10,7 +10,7 @@
     "run_worker_first": ["/api/*"]
   },
   "vars": {
-    "CONTACT_FROM": "Pragmatis <web@pragmatis.com>",
-    "CONTACT_TO": "contacto@pragmatis.com"
+    "CONTACT_FROM": "Pragmatis <web@pragmatis.co>",
+    "CONTACT_TO": "contacto@pragmatis.co"
   }
 }
