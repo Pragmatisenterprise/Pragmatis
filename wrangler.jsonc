@@ -10,7 +10,7 @@
     "run_worker_first": ["/api/*"]
   },
   "d1_databases": [
-    { "binding": "DB", "database_name": "pragmatis", "migrations_dir": "migrations" }
+    { "binding": "DB", "database_name": "pragmatis", "database_id": "67ee0b28-2a56-46cf-bdea-351667fdeeee", "migrations_dir": "migrations" }
   ],
   "vars": {
     "CONTACT_FROM": "Pragmatis <web@pragmatis.co>",
