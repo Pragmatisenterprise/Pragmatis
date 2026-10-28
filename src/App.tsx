@@ -1,30 +1,24 @@
-import { Helmet } from "react-helmet-async";
-import { Benefits } from "@/components/Benefits";
-import { Blog } from "@/components/Blog";
-import { CoreFeatures } from "@/components/CoreFeatures";
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
-import { Hero } from "@/components/Hero";
-import { Platform } from "@/components/Platform";
-import { Security } from "@/components/Security";
-import { Testimonials } from "@/components/Testimonials";
-import { site } from "@/config/site";
+import { lazy, Suspense } from "react";
+import { Route, Routes } from "react-router-dom";
+import { Analytics } from "@/components/Analytics";
+import BlogIndex from "@/pages/BlogIndex";
+import BlogPost from "@/pages/BlogPost";
+import Home from "@/pages/Home";
+import NotFound from "@/pages/NotFound";
+
+const Admin = lazy(() => import("@/admin/AdminApp"));
 
 export default function App() {
   return (
     <>
-      <Helmet><title>{`${site.name} | ${site.tagline}`}</title></Helmet>
-      <Header />
-      <main>
-        <Hero />
-        <Benefits />
-        <CoreFeatures />
-        <Platform />
-        <Security />
-        <Testimonials />
-        <Blog />
-      </main>
-      <Footer />
+      <Analytics />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/blog" element={<BlogIndex />} />
+        <Route path="/blog/:slug" element={<BlogPost />} />
+        <Route path="/admin/*" element={<Suspense fallback={null}><Admin /></Suspense>} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </>
   );
 }

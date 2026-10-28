@@ -9,7 +9,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "dev:worker": "npm run build && wrangler dev",
-    "deploy": "npm run build && wrangler deploy"
+    "deploy": "npm run build && wrangler deploy",
+    "db:migrate:local": "wrangler d1 migrations apply pragmatis --local",
+    "db:migrate:remote": "wrangler d1 migrations apply pragmatis --remote"
   },
   "dependencies": {
     "clsx": "^2.1.1",

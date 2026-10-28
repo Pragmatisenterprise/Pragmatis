@@ -1,4 +1,4 @@
-import { escapeHtml, isEmail, json, readJson, type Env } from "./utils";
+import { escapeHtml, isEmail, json, readJson, recordEvent, type Env } from "./utils";
 
 export async function contact(request: Request, env: Env) {
   const body = await readJson(request);
@@ -28,5 +28,6 @@ export async function contact(request: Request, env: Env) {
     }),
   });
   if (!res.ok) return json({ error: "No se pudo enviar el mensaje" }, 502);
+  await recordEvent(env, "contact");
   return json({ ok: true });
 }

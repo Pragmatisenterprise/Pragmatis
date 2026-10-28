@@ -1,4 +1,4 @@
-import { isEmail, json, readJson, type Env } from "./utils";
+import { isEmail, json, readJson, recordEvent, type Env } from "./utils";
 
 export async function subscribe(request: Request, env: Env) {
   const body = await readJson(request);
@@ -15,5 +15,6 @@ export async function subscribe(request: Request, env: Env) {
     body: JSON.stringify({ email: body.email, unsubscribed: false }),
   });
   if (!res.ok) return json({ error: "No se pudo suscribir" }, 502);
+  await recordEvent(env, "subscribe");
   return json({ ok: true });
 }

@@ -8,9 +8,9 @@ export const site = {
 };
 
 export const nav = [
-  { label: "Servicios", href: "#servicios" },
-  { label: "Plataforma", href: "#plataforma" },
-  { label: "Nosotros", href: "#nosotros" },
-  { label: "Blog", href: "#blog" },
-  { label: "Contacto", href: "#contacto" },
+  { label: "Servicios", href: "/#servicios" },
+  { label: "Plataforma", href: "/#plataforma" },
+  { label: "Nosotros", href: "/#nosotros" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contacto", href: "/#contacto" },
 ];

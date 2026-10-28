@@ -3,7 +3,7 @@ import path from "path";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  server: { host: "::", port: 8080 },
+  server: { host: "::", port: 8080, proxy: { "/api": "http://localhost:8787" } },
   plugins: [react()],
   resolve: { alias: { "@": path.resolve(__dirname, "./src") } },
 });

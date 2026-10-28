@@ -1,3 +1,6 @@
 # Copiar a .dev.vars para desarrollo local con `npm run dev:worker` (no se sube a git)
 RESEND_API_KEY=
 RESEND_AUDIENCE_ID=
+# Panel /admin: contraseña de acceso y secreto para firmar la sesión (usa `openssl rand -hex 32`)
+ADMIN_PASSWORD=
+SESSION_SECRET=
