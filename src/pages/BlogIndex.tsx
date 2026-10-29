@@ -21,12 +21,12 @@ export default function BlogIndex() {
         <meta name="description" content="Artículos sobre desarrollo de software, automatización y negocio digital." />
       </Helmet>
       <Header />
-      <main className="min-h-screen bg-mist pb-16 pt-32 md:pb-28 md:pt-40">
+      <main className="min-h-screen bg-arena pb-16 pt-32 md:pb-28 md:pt-40">
         <div className="container">
-          <p className="text-sm font-medium text-violet">Blog</p>
+          <p className="text-sm font-medium text-paramo">Blog</p>
           <h1 className="mt-3 text-4xl font-semibold tracking-tight md:text-5xl">Artículos para equipos y emprendedores</h1>
-          {failed && <p role="alert" className="mt-12 text-charcoal/60">No se pudieron cargar los artículos. Inténtalo de nuevo más tarde.</p>}
-          {posts?.length === 0 && <p className="mt-12 text-charcoal/60">Pronto publicaremos nuestros primeros artículos.</p>}
+          {failed && <p role="alert" className="mt-12 text-tinta/60">No se pudieron cargar los artículos. Inténtalo de nuevo más tarde.</p>}
+          {posts?.length === 0 && <p className="mt-12 text-tinta/60">Pronto publicaremos nuestros primeros artículos.</p>}
           <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {posts?.map((p) => <PostCard key={p.id} post={p} />)}
           </div>

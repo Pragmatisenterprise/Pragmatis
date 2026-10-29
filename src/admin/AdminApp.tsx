@@ -38,7 +38,7 @@ export default function AdminApp() {
       {auth === "loading" ? null : auth === "out" ? (
         <Login onLogin={() => setAuth("in")} />
       ) : (
-        <div className="min-h-screen bg-mist md:grid md:grid-cols-[240px_1fr]">
+        <div className="min-h-screen bg-arena md:grid md:grid-cols-[240px_1fr]">
           <aside className="bg-black text-white md:sticky md:top-0 md:flex md:h-screen md:flex-col md:p-5">
             <div className="flex items-center justify-between px-4 py-3 md:px-2 md:py-0">
               <Logo />
@@ -64,7 +64,7 @@ export default function AdminApp() {
               <Route path="blog" element={<Posts />} />
               <Route path="blog/nuevo" element={<PostEditor />} />
               <Route path="blog/:id" element={<PostEditor />} />
-              <Route path="*" element={<p className="text-charcoal/60">Sección no encontrada.</p>} />
+              <Route path="*" element={<p className="text-tinta/60">Sección no encontrada.</p>} />
             </Routes>
           </main>
         </div>

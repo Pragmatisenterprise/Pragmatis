@@ -17,9 +17,9 @@ function inline(src: string): ReactNode[] {
     else if (m[4] !== undefined) {
       const external = /^https?:/i.test(m[5]);
       out.push(
-        <a key={key++} href={safeHref(m[5])} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="text-violet underline underline-offset-2">{m[4]}</a>,
+        <a key={key++} href={safeHref(m[5])} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="text-paramo underline underline-offset-2">{m[4]}</a>,
       );
-    } else if (m[6] !== undefined) out.push(<code key={key++} className="rounded bg-mist px-1.5 py-0.5 text-[0.9em]">{m[6]}</code>);
+    } else if (m[6] !== undefined) out.push(<code key={key++} className="rounded bg-arena px-1.5 py-0.5 text-[0.9em]">{m[6]}</code>);
     else if (m[7] !== undefined) out.push(<strong key={key++}>{m[7]}</strong>);
     else out.push(<em key={key++}>{m[8]}</em>);
     last = m.index! + m[0].length;
@@ -43,7 +43,7 @@ export function Markdown({ source }: { source: string }) {
       i++;
       while (i < lines.length && !lines[i].startsWith("```")) code.push(lines[i++]);
       i++;
-      blocks.push(<pre key={key++} className="my-6 overflow-x-auto rounded-2xl bg-charcoal p-5 text-sm text-white"><code>{code.join("\n")}</code></pre>);
+      blocks.push(<pre key={key++} className="my-6 overflow-x-auto rounded-2xl bg-grafito p-5 text-sm text-white"><code>{code.join("\n")}</code></pre>);
       continue;
     }
 
@@ -73,7 +73,7 @@ export function Markdown({ source }: { source: string }) {
     if (line.startsWith(">")) {
       const quote: string[] = [];
       while (i < lines.length && lines[i].startsWith(">")) quote.push(lines[i++].replace(/^>\s?/, ""));
-      blocks.push(<blockquote key={key++} className="my-6 border-l-4 border-violet pl-5 italic text-charcoal/70">{inline(quote.join(" "))}</blockquote>);
+      blocks.push(<blockquote key={key++} className="my-6 border-l-4 border-paramo pl-5 italic text-tinta/70">{inline(quote.join(" "))}</blockquote>);
       continue;
     }
 

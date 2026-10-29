@@ -81,25 +81,25 @@ export function Projects() {
             <Check label="Visible en la web" checked={draft.published} onChange={(e) => setDraft({ ...draft, published: e.target.checked })} />
             <div className="flex gap-2">
               <button className="btn-primary" disabled={busy}>{busy ? "Guardando…" : "Guardar"}</button>
-              <button type="button" className="btn bg-mist" onClick={() => setDraft(null)}>Cancelar</button>
+              <button type="button" className="btn bg-arena" onClick={() => setDraft(null)}>Cancelar</button>
             </div>
           </form>
         )}
-        {items?.length === 0 && !draft && <p className="rounded-2xl bg-white p-6 text-sm text-charcoal/60">Aún no hay proyectos. Crea el primero para que aparezca la sección en la web.</p>}
+        {items?.length === 0 && !draft && <p className="rounded-2xl bg-white p-6 text-sm text-tinta/60">Aún no hay proyectos. Crea el primero para que aparezca la sección en la web.</p>}
         <ul className="space-y-2">
           {items?.map((p, i) => (
             <li key={p.id} className="flex items-center gap-3 rounded-2xl bg-white p-4">
               <div className="flex flex-col">
-                <button className="p-0.5 text-charcoal/40 hover:text-charcoal disabled:opacity-20" disabled={i === 0} onClick={() => move(i, -1)} aria-label={`Subir ${p.title}`}><ArrowUp size={16} /></button>
-                <button className="p-0.5 text-charcoal/40 hover:text-charcoal disabled:opacity-20" disabled={i === items.length - 1} onClick={() => move(i, 1)} aria-label={`Bajar ${p.title}`}><ArrowDown size={16} /></button>
+                <button className="p-0.5 text-tinta/40 hover:text-tinta disabled:opacity-20" disabled={i === 0} onClick={() => move(i, -1)} aria-label={`Subir ${p.title}`}><ArrowUp size={16} /></button>
+                <button className="p-0.5 text-tinta/40 hover:text-tinta disabled:opacity-20" disabled={i === items.length - 1} onClick={() => move(i, 1)} aria-label={`Bajar ${p.title}`}><ArrowDown size={16} /></button>
               </div>
               <div className="min-w-0 flex-1">
                 <p className="truncate font-medium">{p.title}</p>
-                <p className="truncate text-sm text-charcoal/50">{p.category || "Sin categoría"}</p>
+                <p className="truncate text-sm text-tinta/50">{p.category || "Sin categoría"}</p>
               </div>
               <Badge on={!!p.published} yes="Visible" no="Oculto" />
-              <button className="p-2 text-charcoal/50 hover:text-charcoal" onClick={() => { setError(""); setDraft({ ...p, published: !!p.published }); }} aria-label={`Editar ${p.title}`}><Pencil size={16} /></button>
-              <button className="p-2 text-charcoal/50 hover:text-red-600" onClick={() => remove(p)} aria-label={`Eliminar ${p.title}`}><Trash2 size={16} /></button>
+              <button className="p-2 text-tinta/50 hover:text-tinta" onClick={() => { setError(""); setDraft({ ...p, published: !!p.published }); }} aria-label={`Editar ${p.title}`}><Pencil size={16} /></button>
+              <button className="p-2 text-tinta/50 hover:text-red-600" onClick={() => remove(p)} aria-label={`Eliminar ${p.title}`}><Trash2 size={16} /></button>
             </li>
           ))}
         </ul>

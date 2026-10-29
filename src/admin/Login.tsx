@@ -29,7 +29,7 @@ export function Login({ onLogin }: { onLogin: () => void }) {
         <h1 className="text-xl font-semibold">Panel de administración</h1>
         <label className="block text-sm">
           <span className="mb-1.5 block text-white/70">Contraseña</span>
-          <TextInput name="password" type="password" required autoFocus autoComplete="current-password" className="border-white/10 bg-white/5 text-white focus:border-violet-glow" />
+          <TextInput name="password" type="password" required autoFocus autoComplete="current-password" className="border-white/10 bg-white/5 text-white focus:border-paramo-luz" />
         </label>
         <ErrorBox message={error} />
         <button className="btn-primary w-full" disabled={busy}>{busy ? "Entrando…" : "Entrar"}</button>

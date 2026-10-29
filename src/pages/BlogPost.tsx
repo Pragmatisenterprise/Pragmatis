@@ -35,15 +35,15 @@ export default function BlogPost() {
       <Header />
       <main className="min-h-screen pb-16 pt-32 md:pb-28 md:pt-40">
         <article className="container max-w-3xl">
-          <Link to="/blog" className="inline-flex items-center gap-2 text-sm text-charcoal/60 hover:text-charcoal"><ArrowLeft size={16} />Todos los artículos</Link>
-          {error && <p role="alert" className="mt-10 text-charcoal/60">{error === "notfound" ? "Este artículo no existe o ya no está disponible." : "No se pudo cargar el artículo."}</p>}
+          <Link to="/blog" className="inline-flex items-center gap-2 text-sm text-tinta/60 hover:text-tinta"><ArrowLeft size={16} />Todos los artículos</Link>
+          {error && <p role="alert" className="mt-10 text-tinta/60">{error === "notfound" ? "Este artículo no existe o ya no está disponible." : "No se pudo cargar el artículo."}</p>}
           {post && (
             <>
-              <p className="mt-8 text-xs uppercase text-charcoal/50">{[post.tag, `${post.read_min} min de lectura`].filter(Boolean).join(" · ")}</p>
+              <p className="mt-8 text-xs uppercase text-tinta/50">{[post.tag, `${post.read_min} min de lectura`].filter(Boolean).join(" · ")}</p>
               <h1 className="mt-3 text-4xl font-semibold leading-tight tracking-tight md:text-5xl">{post.title}</h1>
-              <p className="mt-4 text-sm text-charcoal/50">{[formatDate(post.published_at), post.author].filter(Boolean).join(" · ")}</p>
+              <p className="mt-4 text-sm text-tinta/50">{[formatDate(post.published_at), post.author].filter(Boolean).join(" · ")}</p>
               {post.cover_url && <img src={post.cover_url} alt="" className="mt-8 w-full rounded-3xl object-cover" />}
-              <div className="mt-8 text-lg text-charcoal/80"><Markdown source={post.content} /></div>
+              <div className="mt-8 text-lg text-tinta/80"><Markdown source={post.content} /></div>
             </>
           )}
         </article>

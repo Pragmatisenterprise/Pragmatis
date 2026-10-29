@@ -56,7 +56,7 @@ export function PostEditor() {
 
   return (
     <>
-      <Link to="/admin/blog" className="mb-4 inline-flex items-center gap-2 text-sm text-charcoal/60 hover:text-charcoal"><ArrowLeft size={16} />Volver al blog</Link>
+      <Link to="/admin/blog" className="mb-4 inline-flex items-center gap-2 text-sm text-tinta/60 hover:text-tinta"><ArrowLeft size={16} />Volver al blog</Link>
       <PageTitle title={id ? "Editar artículo" : "Nuevo artículo"} />
       <form onSubmit={save} className="space-y-4 rounded-2xl bg-white p-6">
         <Field label="Título"><TextInput required maxLength={160} value={draft.title} onChange={setTitle} /></Field>
@@ -72,24 +72,24 @@ export function PostEditor() {
         <div>
           <div className="mb-1.5 flex items-center justify-between">
             <span className="text-sm font-medium">Contenido</span>
-            <div className="flex gap-1 rounded-lg bg-mist p-1 text-xs" role="group" aria-label="Modo">
+            <div className="flex gap-1 rounded-lg bg-arena p-1 text-xs" role="group" aria-label="Modo">
               {[false, true].map((p) => (
-                <button key={String(p)} type="button" aria-pressed={preview === p} onClick={() => setPreview(p)} className={cn("rounded-md px-3 py-1", preview === p ? "bg-white shadow-sm" : "text-charcoal/60")}>{p ? "Vista previa" : "Editar"}</button>
+                <button key={String(p)} type="button" aria-pressed={preview === p} onClick={() => setPreview(p)} className={cn("rounded-md px-3 py-1", preview === p ? "bg-white shadow-sm" : "text-tinta/60")}>{p ? "Vista previa" : "Editar"}</button>
               ))}
             </div>
           </div>
           {preview ? (
-            <div className="min-h-[24rem] rounded-xl border border-charcoal/15 px-5 py-2"><Markdown source={draft.content || "*Nada que mostrar todavía.*"} /></div>
+            <div className="min-h-[24rem] rounded-xl border border-tinta/15 px-5 py-2"><Markdown source={draft.content || "*Nada que mostrar todavía.*"} /></div>
           ) : (
             <TextArea rows={18} maxLength={50000} value={draft.content} onChange={set("content")} className="font-mono" aria-label="Contenido" />
           )}
-          <p className="mt-1 text-xs text-charcoal/50">Markdown: <code># Título</code>, <code>## Subtítulo</code>, <code>**negrita**</code>, <code>*cursiva*</code>, <code>- lista</code>, <code>[texto](https://…)</code>, <code>![alt](https://…)</code>, <code>&gt; cita</code>.</p>
+          <p className="mt-1 text-xs text-tinta/50">Markdown: <code># Título</code>, <code>## Subtítulo</code>, <code>**negrita**</code>, <code>*cursiva*</code>, <code>- lista</code>, <code>[texto](https://…)</code>, <code>![alt](https://…)</code>, <code>&gt; cita</code>.</p>
         </div>
         <Check label="Publicado (visible en la web)" checked={draft.published} onChange={(e) => { setSaved(false); setDraft({ ...draft, published: e.target.checked }); }} />
         <ErrorBox message={error} />
         <div className="flex items-center gap-3">
           <button className="btn-primary" disabled={busy}>{busy ? "Guardando…" : "Guardar"}</button>
-          {saved && <span role="status" className="text-sm text-emerald">Guardado</span>}
+          {saved && <span role="status" className="text-sm text-paramo-puente">Guardado</span>}
         </div>
       </form>
     </>
