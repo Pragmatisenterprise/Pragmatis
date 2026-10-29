@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pragmatis · Estudio de marca</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400&family=Manrope:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root { --tinta:#0A0A0B; --niebla:#F4F4F5; --gris:#5C5C66; --borde:#E4E4E7; --indigo:#5B3DF5;
+          --firma: linear-gradient(135deg,#5B3DF5 0%,#2E7BFF 55%,#2FD4A0 100%); }
+  * { box-sizing:border-box; margin:0; }
+  body { background:#fff; color:var(--tinta); font:400 15px/1.6 "Inter Tight",system-ui,sans-serif; }
+  .wrap { max-width:1080px; margin:0 auto; padding:48px 16px 96px; }
+  h1 { font:600 clamp(30px,5vw,52px)/1.05 "Space Grotesk",sans-serif; letter-spacing:-.02em; }
+  h2 { font:600 22px "Space Grotesk",sans-serif; letter-spacing:-.01em; margin:56px 0 16px; }
+  .lead { color:var(--gris); max-width:68ch; margin-top:12px; }
+  .hero { background:var(--tinta); color:#fff; border-radius:20px; padding:40px 28px; margin-top:28px; position:relative; overflow:hidden; }
+  .hero::after { content:""; position:absolute; right:-80px; top:-80px; width:260px; height:260px; border-radius:50%; background:var(--firma); filter:blur(40px); opacity:.55; }
+  .hero p { font:500 clamp(22px,3.4vw,34px)/1.2 "Space Grotesk",sans-serif; max-width:24ch; position:relative; }
+  .hero small { display:block; margin-top:14px; color:#A1A1AA; font-size:14px; position:relative; }
+  .swatches { display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:12px; }
+  .sw { border:1px solid var(--borde); border-radius:14px; overflow:hidden; }
+  .chip { height:92px; display:flex; align-items:flex-end; padding:10px 12px; font:600 14px "Space Grotesk",sans-serif; }
+  .meta { padding:10px 12px; font:400 12px/1.5 "JetBrains Mono",monospace; color:var(--gris); }
+  .grad { height:72px; border-radius:14px; background:var(--firma); }
+  .cards { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+  .card { border:1px solid var(--borde); border-radius:14px; padding:20px; }
+  .card b { display:block; font:600 20px/1.25 "Space Grotesk",sans-serif; margin-bottom:6px; }
+  .card span { color:var(--gris); font-size:14px; }
+  .rec { outline:2px solid var(--indigo); }
+  .type { display:grid; gap:12px; }
+  .type .row { border:1px solid var(--borde); border-radius:14px; padding:20px; display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap; }
+  .type .row em { font:normal 400 12px "JetBrains Mono",monospace; color:var(--gris); }
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  th, td { text-align:left; padding:10px 8px; border-bottom:1px solid var(--borde); vertical-align:top; }
+  th { font-weight:600; color:var(--gris); font-size:12px; text-transform:uppercase; letter-spacing:.05em; }
+  .dot { display:inline-block; width:12px; height:12px; border-radius:3px; vertical-align:-1px; margin-right:6px; }
+  .tablewrap { overflow-x:auto; }
+  a { color:var(--indigo); }
+  @media (max-width:760px) { .cards { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Pragmatis · Estudio de marca</h1>
+  <p class="lead">Resumen visual de la fase 1. El documento completo, con el posicionamiento, el análisis de competidores, el arquetipo, el tono de voz y las fuentes, está en <a href="estudio-de-marca.md">estudio-de-marca.md</a>.</p>
+
+  <div class="hero"><p>Tecnología seria, explicada en simple y hecha a la medida.</p><small>Promesa de marca · Arquetipo: Creador + Sabio, con matiz de Amigo</small></div>
+
+  <h2>Eslogan: 3 opciones</h2>
+  <div class="cards">
+    <div class="card rec"><b>Lo complejo, resuelto.</b><span>Recomendado · EN: “Complexity, solved.”</span></div>
+    <div class="card"><b>Software que trabaja por tu negocio.</b><span>Beneficio directo: automatización</span></div>
+    <div class="card"><b>Tecnología práctica para crecer.</b><span>Une el nombre con “el siguiente nivel”</span></div>
+  </div>
+
+  <h2>Competidores: color dominante</h2>
+  <div class="tablewrap"><table>
+    <tr><th>Marca</th><th>Color</th><th>Lectura</th></tr>
+    <tr><td>Siigo</td><td><i class="dot" style="background:#009dff"></i>#009DFF</td><td>El azul “confianza” ya tiene dueño</td></tr>
+    <tr><td>Alegra</td><td><i class="dot" style="background:#00b19d"></i>#00B19D + navy</td><td>El turquesa también tiene dueño</td></tr>
+    <tr><td>Treinta</td><td><i class="dot" style="background:#fecb18"></i>#FECB18</td><td>Popular e informal</td></tr>
+    <tr><td>Bold</td><td><i class="dot" style="background:#121e6c"></i>#121E6C + #0407F5 + rojo</td><td>Navy + azul eléctrico, saturado</td></tr>
+    <tr><td>Cidenet</td><td><i class="dot" style="background:#0070f5"></i>#0070F5 + menta</td><td>“Azul-verde” genérico de fábrica de software</td></tr>
+    <tr><td><b>Pragmatis</b></td><td><i class="dot" style="background:#5B3DF5"></i>Negro + Índigo #5B3DF5</td><td><b>Hueco libre: nadie del segmento usa el índigo ni el negro como base</b></td></tr>
+  </table></div>
+
+  <h2>Paleta</h2>
+  <div class="swatches">
+    <div class="sw"><div class="chip" style="background:#0A0A0B;color:#fff">Tinta</div><div class="meta">#0A0A0B<br>blanco encima 19.79</div></div>
+    <div class="sw"><div class="chip" style="background:#17171A;color:#fff">Grafito</div><div class="meta">#17171A<br>blanco encima 17.89</div></div>
+    <div class="sw"><div class="chip" style="background:#F4F4F5">Niebla</div><div class="meta">#F4F4F5<br>tinta encima 18.00</div></div>
+    <div class="sw"><div class="chip" style="background:#5B3DF5;color:#fff">Índigo Pragmatis</div><div class="meta">#5B3DF5<br>blanco encima 6.12 AA</div></div>
+    <div class="sw"><div class="chip" style="background:#8B74FF;color:#0A0A0B">Índigo luz</div><div class="meta">#8B74FF<br>sobre tinta 5.69 AA</div></div>
+    <div class="sw"><div class="chip" style="background:#3A22C9;color:#fff">Índigo hondo</div><div class="meta">#3A22C9<br>sobre blanco 9.32 AAA</div></div>
+    <div class="sw"><div class="chip" style="background:#2E7BFF;color:#0A0A0B">Azul señal</div><div class="meta">#2E7BFF<br>sobre tinta 5.08 · solo degradado</div></div>
+    <div class="sw"><div class="chip" style="background:#2FD4A0;color:#0A0A0B">Menta</div><div class="meta">#2FD4A0<br>sobre tinta 10.41 · nunca texto en blanco</div></div>
+    <div class="sw"><div class="chip" style="background:#5C5C66;color:#fff">Gris texto</div><div class="meta">#5C5C66<br>sobre blanco 6.61 AA</div></div>
+    <div class="sw"><div class="chip" style="background:#A1A1AA;color:#0A0A0B">Gris suave</div><div class="meta">#A1A1AA<br>sobre tinta 7.72 AAA</div></div>
+    <div class="sw"><div class="chip" style="background:#0E7A57;color:#fff">Esmeralda texto</div><div class="meta">#0E7A57<br>sobre blanco 5.33 AA</div></div>
+  </div>
+  <p class="lead" style="margin-top:16px">Degradado de firma (solo en símbolo, detalles y fondos de redes; nunca detrás de texto pequeño):</p>
+  <div class="grad" style="margin-top:8px"></div>
+
+  <h2>Tipografía</h2>
+  <div class="type">
+    <div class="row"><span style="font:600 40px/1 'Space Grotesk';letter-spacing:-.02em">Pragmatis</span><em>Wordmark y titulares · Space Grotesk 600</em></div>
+    <div class="row"><span style="font:700 40px/1 Manrope;letter-spacing:-.02em">Pragmatis</span><em>Alternativa más sobria · Manrope 700</em></div>
+    <div class="row"><span style="font:400 17px 'Inter Tight'">Automatizamos tu facturación, tu inventario y tus pedidos. ¿Empezamos?</span><em>Texto y UI · Inter Tight (ya está en la web)</em></div>
+    <div class="row"><span style="font:400 15px 'JetBrains Mono'">$ 1.250.000 COP · 99,9 % uptime</span><em>Datos y cifras · JetBrains Mono</em></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,20 +1,26 @@
 import type { Config } from "tailwindcss";
 
+// Paleta Páramo. Fuente de verdad: brand/06-tokens/tokens.css (contrastes en brand/05-guia).
 export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     container: { center: true, padding: "1.5rem", screens: { "2xl": "1240px" } },
     extend: {
-      fontFamily: { sans: ["Inter Tight", "system-ui", "sans-serif"] },
+      fontFamily: {
+        sans: ["Inter Tight", "system-ui", "sans-serif"],
+        display: ["Space Grotesk", "Inter Tight", "system-ui", "sans-serif"],
+        mono: ["JetBrains Mono", "ui-monospace", "monospace"],
+      },
       colors: {
-        ink: "#000000",
-        charcoal: "#111111",
-        panel: "#161616",
-        mist: "#f4f4f4",
-        violet: { DEFAULT: "#5b3df5", glow: "#8b74ff", soft: "#e9e4ff" },
-        emerald: { DEFAULT: "#2fb98a", soft: "#dff6ec" },
-        orchid: "#e6b8ec",
-        blush: "#f8d4e2",
+        tinta: "#0E1511",
+        grafito: { DEFAULT: "#1A231E", 2: "#243029" },
+        papel: "#F4F2EB",
+        arena: "#EBE7DC",
+        linea: "#DAD6CB",
+        texto2: "#59615A",
+        "gris-oscuro": "#A7AFA8",
+        paramo: { DEFAULT: "#1C5A43", hondo: "#14432F", puente: "#3C8C68", luz: "#6CC19A", suave: "#DCEBE2" },
+        maiz: { DEFAULT: "#E3B23C", claro: "#EDC463", ocre: "#A87B12", texto: "#7E5E00", suave: "#F7EBCB" },
       },
       borderRadius: { "4xl": "2rem" },
       keyframes: {

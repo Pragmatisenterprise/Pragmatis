@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pragmatis · Portada de propuesta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  /* Portada A4 lista para imprimir o exportar a PDF (Ctrl+P → Guardar como PDF, márgenes: ninguno) */
+  @page { size: A4; margin: 0; }
+  :root { --tinta:#0E1511; --papel:#F4F2EB; --verde:#1C5A43; --texto2:#59615A; --maiz:#E3B23C; --linea:#DAD6CB; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { background: #D9D6CE; }
+  body { font: 400 11pt/1.5 "Inter Tight", Arial, sans-serif; color: var(--tinta); padding: 24px 16px; }
+  .page { width: 210mm; height: 297mm; margin: 0 auto; background: var(--papel); position: relative; overflow: hidden;
+          padding: 22mm 20mm; display: flex; flex-direction: column; box-shadow: 0 10px 40px rgba(0,0,0,.18); }
+  .top { display: flex; justify-content: space-between; align-items: center; }
+  .top img { height: 9mm; }
+  .doc { font: 400 8.5pt "JetBrains Mono", monospace; color: var(--texto2); text-align: right; }
+  .main { margin-top: 48mm; max-width: 140mm; position: relative; z-index: 1; }
+  .eyebrow { font: 600 9pt "Inter Tight"; letter-spacing: .14em; text-transform: uppercase; color: var(--verde); }
+  h1 { font: 600 34pt/1.05 "Space Grotesk", sans-serif; letter-spacing: -.02em; margin-top: 6mm; }
+  .lead { font-size: 13pt; color: var(--texto2); margin-top: 7mm; max-width: 120mm; }
+  .meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6mm 10mm; margin-top: 18mm; max-width: 120mm;
+          border-top: 1px solid var(--linea); padding-top: 7mm; position: relative; z-index: 1; }
+  .meta dt { font: 600 8pt "Inter Tight"; letter-spacing: .08em; text-transform: uppercase; color: var(--texto2); }
+  .meta dd { font: 500 11pt "Inter Tight"; margin-top: 1mm; }
+  .stair { position: absolute; right: -14mm; bottom: -12mm; width: 120mm; }
+  .foot { margin-top: auto; font-size: 9pt; color: var(--texto2); position: relative; z-index: 1; }
+  .foot b { color: var(--tinta); font-weight: 600; }
+  @media print { html, body { background: none; padding: 0; } .page { box-shadow: none; margin: 0; } }
+  .embed, .embed body { background: none; padding: 0; } .embed .page { box-shadow: none; margin: 0; }
+</style>
+<script>if (window.self !== window.top) document.documentElement.classList.add("embed");</script>
+</head>
+<body>
+  <section class="page">
+    <div class="top">
+      <img src="../03-logo-final/lockup/lockup-degradado-claro.svg" alt="Pragmatis">
+      <div class="doc">PROPUESTA N.º [2026-014]<br>CONFIDENCIAL</div>
+    </div>
+
+    <div class="main">
+      <p class="eyebrow">Propuesta comercial</p>
+      <h1>Sistema de inventario y facturación para [Nombre del cliente]</h1>
+      <p class="lead">Una solución a la medida para que tu operación trabaje sola: menos tareas manuales, datos en tiempo real y un equipo que te acompaña.</p>
+    </div>
+
+    <dl class="meta">
+      <div><dt>Preparada para</dt><dd>[Nombre del contacto]<br>[Empresa S.A.S.]</dd></div>
+      <div><dt>Preparada por</dt><dd>[Nombre Apellido]<br>Pragmatis</dd></div>
+      <div><dt>Fecha</dt><dd>[28 de octubre de 2026]</dd></div>
+      <div><dt>Vigencia</dt><dd>[30 días]</dd></div>
+    </dl>
+
+    <img class="stair" src="../03-logo-final/simbolo/simbolo-degradado-claro.svg" alt="">
+
+    <p class="foot"><b>Pragmatis</b> · Software que trabaja por tu negocio · pragmatis.co · contacto@pragmatis.co</p>
+  </section>
+</body>
+</html>

@@ -20,48 +20,48 @@ export function Footer() {
   };
   return (
     <>
-      <section id="contacto" className="bg-black py-16 text-white md:py-28">
+      <section id="contacto" className="dark-section bg-tinta py-16 text-papel md:py-28">
         <Reveal className="container grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <div className="text-center lg:text-left">
             <h2 className="text-3xl font-semibold tracking-tight md:text-5xl">¿Listo para construir tu próximo software?</h2>
-            <p className="mt-5 max-w-md text-white/60 max-lg:mx-auto">Desde startups que lanzan su primer producto hasta empresas que escalan globalmente. Cuéntanos qué necesitas y te respondemos con una propuesta.</p>
-            <a href={`mailto:${site.email}`} className="mt-6 inline-block text-sm text-violet-glow hover:underline">{site.email}</a>
+            <p className="mt-5 max-w-md text-gris-oscuro max-lg:mx-auto">Desde startups que lanzan su primer producto hasta empresas que escalan globalmente. Cuéntanos qué necesitas y te respondemos con una propuesta.</p>
+            <a href={`mailto:${site.email}`} className="mt-6 inline-block text-sm text-paramo-luz hover:underline">{site.email}</a>
           </div>
           <ContactForm />
         </Reveal>
       </section>
-      <footer className="border-t border-white/10 bg-black pb-10 pt-16 text-white">
+      <footer className="dark-section border-t border-papel/10 bg-tinta pb-10 pt-16 text-papel">
         <div className="container grid gap-12 md:grid-cols-[1.4fr_1fr_1fr_1.4fr]">
           <div>
             <Logo />
-            <p className="mt-4 max-w-xs text-sm text-white/50">{site.tagline}. Desde la idea hasta producción.</p>
-            <p className="mt-6 text-xs text-white/40">{site.address}</p>
+            <p className="mt-4 max-w-xs text-sm text-gris-oscuro">{site.tagline}. Desde la idea hasta producción.</p>
+            <p className="mt-6 text-xs text-gris-oscuro">{site.address}</p>
           </div>
           <div>
             <h4 className="text-sm font-medium">Páginas</h4>
-            <ul className="mt-4 space-y-2 text-sm text-white/50">
-              {nav.map((n) => <li key={n.href}><a href={n.href} className="hover:text-white">{n.label}</a></li>)}
+            <ul className="mt-4 space-y-2 text-sm text-gris-oscuro">
+              {nav.map((n) => <li key={n.href}><a href={n.href} className="hover:text-papel">{n.label}</a></li>)}
             </ul>
           </div>
           <div>
             <h4 className="text-sm font-medium">Legal</h4>
-            <ul className="mt-4 space-y-2 text-sm text-white/50">
+            <ul className="mt-4 space-y-2 text-sm text-gris-oscuro">
               <li>Política de privacidad</li><li>Términos y condiciones</li>
             </ul>
           </div>
           <form onSubmit={onSubmit}>
             <h4 className="text-sm font-medium">Mantente al día</h4>
-            <p className="mt-2 text-sm text-white/50">Novedades sobre desarrollo y tecnología.</p>
-            {state === "sent" ? <p role="status" className="mt-4 text-sm text-emerald">¡Gracias por suscribirte!</p> : (
+            <p className="mt-2 text-sm text-gris-oscuro">Novedades sobre desarrollo y tecnología.</p>
+            {state === "sent" ? <p role="status" className="mt-4 text-sm text-paramo-luz">¡Gracias por suscribirte!</p> : (
               <div className="mt-4 flex gap-2">
-                <input name="email" required type="email" placeholder="Tu correo" aria-label="Correo electrónico" className="min-w-0 flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm outline-none placeholder:text-white/30 focus:border-violet-glow" />
+                <input name="email" required type="email" placeholder="Tu correo" aria-label="Correo electrónico" className="min-w-0 flex-1 rounded-xl border border-papel/10 bg-papel/5 px-4 py-3 text-sm outline-none placeholder:text-papel/40 focus:border-maiz" />
                 <button className="btn-primary" disabled={state === "sending"}>Suscribir</button>
               </div>
             )}
             {state === "error" && <p role="alert" className="mt-2 text-sm text-red-400">No se pudo suscribir. Inténtalo de nuevo.</p>}
           </form>
         </div>
-        <p className="container mt-14 text-xs text-white/30">© {new Date().getFullYear()} {site.name}. Todos los derechos reservados.</p>
+        <p className="container mt-14 text-xs text-gris-oscuro">© {new Date().getFullYear()} {site.name}. Todos los derechos reservados.</p>
       </footer>
     </>
   );

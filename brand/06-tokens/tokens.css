@@ -1,0 +1,149 @@
+/* ==========================================================================
+   Pragmatis · Tokens de diseño (fase 6)
+   Paleta Páramo · Space Grotesk (títulos) · Inter Tight (texto) · JetBrains Mono (datos)
+
+   Tres capas:
+     1. Primitivos   → valores crudos (--pg-*). No se usan directo en componentes.
+     2. Semánticos   → intención (--color-*, --font-*). Cambian con el tema.
+     3. Componentes  → decisiones concretas (--button-*, --logo-*).
+
+   Tema claro por defecto; tema oscuro con [data-theme="dark"] o la clase .theme-dark
+   (útil para secciones oscuras dentro de una página clara).
+   Contrastes WCAG 2.x calculados; ver brand/05-guia/guia-de-marca.html.
+   ========================================================================== */
+
+/* Fuentes (Google Fonts, licencia OFL):
+   https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap */
+
+:root {
+  /* ---- 1. Primitivos: color ---------------------------------------- */
+  --pg-tinta: #0E1511;          /* negro verdoso: base oscura y texto principal */
+  --pg-grafito: #1A231E;        /* superficies sobre tinta */
+  --pg-grafito-2: #243029;      /* bordes y hover sobre tinta */
+  --pg-papel: #F4F2EB;          /* fondo claro principal (en vez de blanco puro) */
+  --pg-arena: #EBE7DC;          /* fondo claro secundario, secciones alternas */
+  --pg-linea: #DAD6CB;          /* bordes sobre claro */
+  --pg-blanco: #FFFFFF;         /* tarjetas sobre papel */
+  --pg-texto-2: #59615A;        /* texto secundario sobre claro: 5.71:1 papel, 5.18:1 arena */
+  --pg-gris-oscuro: #A7AFA8;    /* texto secundario sobre tinta: 8.24:1 (7.17:1 sobre grafito) */
+
+  --pg-verde: #1C5A43;          /* VERDE PÁRAMO · color de marca: 7.23:1 sobre papel; blanco encima 8.10:1 */
+  --pg-verde-hondo: #14432F;    /* hover/presionado del verde: blanco encima 11.21:1 */
+  --pg-verde-puente: #3C8C68;   /* parada media del degradado claro, gráficos */
+  --pg-verde-luz: #6CC19A;      /* verde sobre tinta: 8.58:1 */
+  --pg-verde-suave: #DCEBE2;    /* fondos suaves; tinta encima 15.01:1 */
+
+  --pg-maiz: #E3B23C;           /* MAÍZ · acento cálido y CTA sobre oscuro: tinta encima 9.43:1. Nunca texto sobre claro */
+  --pg-maiz-claro: #EDC463;     /* hover del maíz: tinta encima 11.18:1 */
+  --pg-ocre: #A87B12;           /* maíz para gráficos sobre claro: 3.4:1 (no para texto) */
+  --pg-maiz-texto: #7E5E00;     /* maíz como texto sobre claro: 5.37:1 */
+  --pg-maiz-suave: #F7EBCB;     /* fondos suaves cálidos; tinta encima 15.61:1 */
+
+  --pg-error: #B42318;          /* sobre claro: 5.87:1 */
+  --pg-error-oscuro: #F87171;   /* sobre tinta: 6.69:1 */
+
+  /* Degradados de firma: solo símbolo, detalles y fondos de redes. Nunca detrás de texto pequeño */
+  --pg-degradado-claro: linear-gradient(45deg, #1C5A43 0%, #3C8C68 55%, #A87B12 100%);
+  --pg-degradado-oscuro: linear-gradient(45deg, #2F7A5A 0%, #6CC19A 55%, #E3B23C 100%);
+
+  /* ---- 1. Primitivos: tipografía ------------------------------------ */
+  --pg-font-display: "Space Grotesk", "Inter Tight", system-ui, sans-serif;
+  --pg-font-sans: "Inter Tight", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --pg-font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  /* Escala tipográfica (razón ~1.25, fluida en títulos) */
+  --pg-text-xs: 0.75rem;     /* 12 */
+  --pg-text-sm: 0.875rem;    /* 14 */
+  --pg-text-base: 1rem;      /* 16: mínimo para texto corrido */
+  --pg-text-lg: 1.125rem;    /* 18 */
+  --pg-text-xl: 1.25rem;     /* 20 */
+  --pg-text-2xl: clamp(1.5rem, 1.3rem + 0.8vw, 1.875rem);
+  --pg-text-3xl: clamp(1.875rem, 1.5rem + 1.5vw, 2.5rem);
+  --pg-text-4xl: clamp(2.25rem, 1.7rem + 2.4vw, 3.5rem);
+  --pg-text-5xl: clamp(2.75rem, 1.9rem + 3.8vw, 4.5rem);
+
+  --pg-leading-tight: 1.05;  /* títulos display */
+  --pg-leading-snug: 1.25;
+  --pg-leading-body: 1.55;
+  --pg-tracking-display: -0.025em;
+  --pg-tracking-title: -0.015em;
+
+  /* ---- 1. Primitivos: espacio, radios, sombras, movimiento ------------ */
+  --pg-space-1: 0.25rem; --pg-space-2: 0.5rem; --pg-space-3: 0.75rem; --pg-space-4: 1rem;
+  --pg-space-6: 1.5rem;  --pg-space-8: 2rem;   --pg-space-12: 3rem;   --pg-space-16: 4rem;
+  --pg-space-24: 6rem;   --pg-space-28: 7rem;
+
+  /* Radios rectos y moderados: el símbolo es ortogonal, la UI no debe verse "burbuja" */
+  --pg-radius-sm: 6px; --pg-radius-md: 10px; --pg-radius-lg: 16px; --pg-radius-xl: 24px; --pg-radius-full: 999px;
+
+  --pg-shadow-sm: 0 1px 2px rgb(14 21 17 / 0.06);
+  --pg-shadow-md: 0 8px 24px rgb(14 21 17 / 0.08);
+  --pg-shadow-lg: 0 20px 50px rgb(14 21 17 / 0.16);
+  --pg-glow: 0 0 80px rgb(108 193 154 / 0.28);
+
+  --pg-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --pg-duration-fast: 150ms; --pg-duration: 250ms; --pg-duration-slow: 600ms;
+
+  /* ---- 2. Semánticos (tema claro) -------------------------------------- */
+  --color-bg: var(--pg-papel);
+  --color-bg-alt: var(--pg-arena);
+  --color-surface: var(--pg-blanco);
+  --color-border: var(--pg-linea);
+  --color-text: var(--pg-tinta);
+  --color-text-muted: var(--pg-texto-2);
+  --color-brand: var(--pg-verde);
+  --color-brand-hover: var(--pg-verde-hondo);
+  --color-on-brand: var(--pg-blanco);
+  --color-accent: var(--pg-maiz);
+  --color-accent-hover: var(--pg-maiz-claro);
+  --color-on-accent: var(--pg-tinta);
+  --color-link: var(--pg-verde);
+  --color-success: var(--pg-verde);
+  --color-error: var(--pg-error);
+  --color-focus: var(--pg-verde);
+  --gradient-brand: var(--pg-degradado-claro);
+
+  --font-display: var(--pg-font-display);
+  --font-body: var(--pg-font-sans);
+  --font-mono: var(--pg-font-mono);
+
+  /* ---- 3. Componentes ------------------------------------------------ */
+  --button-radius: var(--pg-radius-md);
+  --button-padding: 0.75rem 1.25rem;
+  --button-primary-bg: var(--color-brand);
+  --button-primary-bg-hover: var(--color-brand-hover);
+  --button-primary-fg: var(--color-on-brand);
+  --card-radius: var(--pg-radius-xl);
+  --card-bg: var(--color-surface);
+  --focus-ring: 0 0 0 3px var(--color-bg), 0 0 0 5px var(--color-focus);
+  --logo-symbol-ratio: 1.4;   /* alto del símbolo = 1.4 × altura de mayúscula del nombre */
+  --logo-gap: 0.32em;         /* espacio símbolo-nombre */
+}
+
+/* ---- 2. Semánticos (tema oscuro) ------------------------------------ */
+[data-theme="dark"],
+.theme-dark {
+  --color-bg: var(--pg-tinta);
+  --color-bg-alt: var(--pg-grafito);
+  --color-surface: var(--pg-grafito);
+  --color-border: var(--pg-grafito-2);
+  --color-text: var(--pg-papel);
+  --color-text-muted: var(--pg-gris-oscuro);
+  --color-brand: var(--pg-verde-luz);
+  --color-brand-hover: #8AD0AF;       /* 10.34:1 sobre tinta */
+  --color-on-brand: var(--pg-tinta);
+  --color-link: var(--pg-verde-luz);
+  --color-success: var(--pg-verde-luz);
+  --color-error: var(--pg-error-oscuro);
+  --color-focus: var(--pg-maiz);
+  --gradient-brand: var(--pg-degradado-oscuro);
+
+  /* Sobre oscuro, el CTA principal es maíz */
+  --button-primary-bg: var(--pg-maiz);
+  --button-primary-bg-hover: var(--pg-maiz-claro);
+  --button-primary-fg: var(--pg-tinta);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --pg-duration-fast: 0.01ms; --pg-duration: 0.01ms; --pg-duration-slow: 0.01ms; }
+}

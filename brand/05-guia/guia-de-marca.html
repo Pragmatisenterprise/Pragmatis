@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pragmatis · Guía de marca</title>
+<link rel="icon" type="image/svg+xml" href="../03-logo-final/favicon/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../06-tokens/tokens.css">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--color-bg); color: var(--color-text); font: 400 var(--pg-text-base)/var(--pg-leading-body) var(--font-body); }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+  a { color: var(--color-link); }
+  code { font: 400 0.85em var(--font-mono); }
+  h2 { font: 600 var(--pg-text-3xl)/1.1 var(--font-display); letter-spacing: var(--pg-tracking-title); }
+  h3 { font: 600 var(--pg-text-xl)/1.25 var(--font-display); margin: 40px 0 10px; }
+  p + p { margin-top: 10px; }
+  .muted { color: var(--color-text-muted); }
+
+  /* Portada */
+  .cover { background: var(--pg-tinta); color: var(--pg-papel); position: relative; overflow: hidden; }
+  .cover .wrap { min-height: 88vh; display: flex; flex-direction: column; justify-content: space-between; padding-top: 48px; padding-bottom: 48px; }
+  .cover .lock { height: 40px; align-self: flex-start; }
+  .cover h1 { font: 600 var(--pg-text-5xl)/var(--pg-leading-tight) var(--font-display); letter-spacing: var(--pg-tracking-display); max-width: 12ch; position: relative; z-index: 1; }
+  .cover p { color: var(--pg-gris-oscuro); max-width: 52ch; margin-top: 18px; position: relative; z-index: 1; }
+  .cover .stair { position: absolute; right: -4%; bottom: -6%; width: min(46vw, 520px); }
+  .cover .ver { font: 400 var(--pg-text-xs) var(--font-mono); color: var(--pg-gris-oscuro); position: relative; z-index: 1; }
+
+  /* Índice */
+  nav.toc { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--color-bg) 92%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--color-border); }
+  nav.toc .wrap { display: flex; gap: 6px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; scrollbar-width: none; }
+  nav.toc a { white-space: nowrap; text-decoration: none; color: var(--color-text-muted); font-size: var(--pg-text-sm); padding: 6px 10px; border-radius: var(--pg-radius-sm); }
+  nav.toc a:hover { background: var(--pg-arena); color: var(--color-text); }
+
+  section.ch { padding: var(--pg-space-24) 0 0; }
+  .ch-num { font: 500 var(--pg-text-sm) var(--font-mono); color: var(--color-brand); display: block; margin-bottom: 8px; }
+  .intro { max-width: 68ch; margin-top: 14px; color: var(--color-text-muted); font-size: var(--pg-text-lg); }
+
+  .grid { display: grid; gap: 14px; margin-top: 24px; }
+  .g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--pg-radius-lg); padding: 22px; }
+  .card h4 { font: 600 var(--pg-text-base) var(--font-body); margin-bottom: 6px; }
+  .card p, .card li { font-size: var(--pg-text-sm); color: var(--color-text-muted); }
+  .card ul { padding-left: 18px; }
+  .stage { border-radius: var(--pg-radius-lg); display: grid; place-items: center; padding: 36px 24px; min-height: 200px; position: relative; overflow: hidden; }
+  .stage img { max-width: 100%; }
+  .on-tinta { background: var(--pg-tinta); } .on-papel { background: var(--pg-papel); border: 1px solid var(--color-border); }
+  .on-blanco { background: #fff; border: 1px solid var(--color-border); } .on-verde { background: var(--pg-verde); } .on-maiz { background: var(--pg-maiz); }
+  .cap { font: 400 var(--pg-text-xs)/1.5 var(--font-mono); color: var(--color-text-muted); margin-top: 8px; }
+
+  /* Construcción */
+  .construct { position: relative; width: 100%; max-width: 360px; margin: 0 auto; }
+  .construct svg { width: 100%; display: block; }
+
+  /* Zona de protección */
+  .clear { position: relative; display: inline-block; padding: 34px; outline: 1.5px dashed var(--pg-verde-puente); outline-offset: -1px; }
+  .clear img { display: block; height: 72px; }
+  .clear .x { position: absolute; background: color-mix(in srgb, var(--pg-maiz) 35%, transparent); }
+  .clear .x.t { top: 0; left: 0; right: 0; height: 34px; } .clear .x.b { bottom: 0; left: 0; right: 0; height: 34px; }
+  .clear .x.l { top: 34px; bottom: 34px; left: 0; width: 34px; } .clear .x.r { top: 34px; bottom: 34px; right: 0; width: 34px; }
+  .clear .lbl { position: absolute; top: 8px; left: 10px; font: 500 12px var(--font-mono); color: var(--pg-maiz-texto); }
+
+  /* Usos incorrectos */
+  .dont { position: relative; }
+  .dont .stage { min-height: 150px; padding: 24px; }
+  .dont .stage img { height: 40px; }
+  .dont .x { position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; border-radius: 50%; background: var(--pg-error); color: #fff; display: grid; place-items: center; font: 700 14px var(--font-body); }
+  .dont p { font-size: var(--pg-text-sm); margin-top: 8px; }
+  .fake-lock { display: inline-flex; align-items: center; gap: 0.32em; font: 600 34px/1 var(--font-display); letter-spacing: -0.02em; color: var(--pg-tinta); }
+  .fake-lock img { height: 1.0em !important; }
+  .photo { background: linear-gradient(120deg, #6b8f71, #c8b48a 40%, #4f6b5a 70%, #d9cfb8); }
+
+  /* Color */
+  .swatch { border-radius: var(--pg-radius-lg); overflow: hidden; border: 1px solid var(--color-border); background: #fff; }
+  .swatch .chip { height: 120px; padding: 14px; display: flex; align-items: flex-end; font: 600 var(--pg-text-lg) var(--font-display); }
+  .swatch .meta { padding: 12px 14px; font: 400 12px/1.6 var(--font-mono); color: var(--color-text-muted); }
+  .swatch .meta b { display: block; font: 600 14px var(--font-body); color: var(--color-text); }
+  .grad { height: 84px; border-radius: var(--pg-radius-lg); display: flex; align-items: flex-end; padding: 12px; font: 500 12px var(--font-mono); color: #fff; }
+  .ratio { width: 100%; display: flex; height: 26px; border-radius: 8px; overflow: hidden; margin-top: 14px; font: 500 11px var(--font-mono); }
+  .ratio span { display: grid; place-items: center; }
+  table { width: 100%; border-collapse: collapse; font-size: var(--pg-text-sm); }
+  th, td { text-align: left; padding: 10px; border-bottom: 1px solid var(--color-border); vertical-align: top; }
+  th { font: 600 11px var(--font-body); text-transform: uppercase; letter-spacing: .06em; color: var(--color-text-muted); }
+  .tw { overflow-x: auto; margin-top: 20px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--pg-radius-lg); }
+  .ok { color: var(--pg-verde); font-weight: 600; } .no { color: var(--pg-error); font-weight: 600; }
+  .dot { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; margin-right: 6px; border: 1px solid rgb(0 0 0 / .1); }
+
+  /* Tipografía */
+  .spec { display: grid; grid-template-columns: 180px 1fr; gap: 16px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--color-border); }
+  .spec small { font: 400 12px/1.5 var(--font-mono); color: var(--color-text-muted); }
+  .type-hero { font: 600 clamp(56px, 10vw, 120px)/0.95 var(--font-display); letter-spacing: -0.03em; }
+
+  /* Voz */
+  .say { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--color-border); border-radius: var(--pg-radius-lg); overflow: hidden; margin-top: 14px; background: var(--color-surface); }
+  .say > div { padding: 16px 18px; font-size: var(--pg-text-sm); }
+  .say > div + div { border-left: 1px solid var(--color-border); }
+  .say .h { font: 600 11px var(--font-body); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
+  .say .no-col .h { color: var(--pg-error); } .say .yes-col .h { color: var(--pg-verde); }
+  .say .no-col { background: #FBF4F2; }
+
+  footer { margin-top: var(--pg-space-24); padding: 40px 0 56px; background: var(--pg-tinta); color: var(--pg-gris-oscuro); font-size: var(--pg-text-sm); }
+  footer img { height: 28px; margin-bottom: 14px; }
+
+  @media (max-width: 860px) {
+    .g2, .g3, .g4 { grid-template-columns: 1fr; }
+    .g4.keep2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .spec { grid-template-columns: 1fr; gap: 4px; }
+    .say { grid-template-columns: 1fr; } .say > div + div { border-left: 0; border-top: 1px solid var(--color-border); }
+  }
+  @media print {
+    nav.toc { display: none; } section.ch { break-before: page; padding-top: 24px; }
+    .cover .wrap { min-height: 100vh; }
+  }
+</style>
+</head>
+<body>
+
+<header class="cover">
+  <div class="wrap">
+    <img class="lock" src="../03-logo-final/lockup/lockup-degradado-oscuro.svg" alt="Pragmatis">
+    <div>
+      <h1>Guía de marca</h1>
+      <p>Cómo se ve, cómo suena y cómo se usa Pragmatis. Este documento es la referencia para la web, las redes, las propuestas y cualquier pieza nueva.</p>
+    </div>
+    <span class="ver">v1.0 · octubre 2026</span>
+  </div>
+  <img class="stair" src="../03-logo-final/simbolo/simbolo-degradado-oscuro.svg" alt="">
+</header>
+
+<nav class="toc" aria-label="Contenido"><div class="wrap">
+  <a href="#esencia">1. Esencia</a><a href="#logo">2. Logo</a><a href="#proteccion">3. Protección y tamaños</a><a href="#versiones">4. Versiones</a>
+  <a href="#incorrectos">5. Usos incorrectos</a><a href="#color">6. Color</a><a href="#tipografia">7. Tipografía</a><a href="#voz">8. Tono de voz</a><a href="#archivos">9. Archivos</a>
+</div></nav>
+
+<main class="wrap">
+
+  <!-- 1 -->
+  <section class="ch" id="esencia">
+    <span class="ch-num">01</span>
+    <h2>Esencia de marca</h2>
+    <p class="intro">Pragmatis diseña, construye y opera el software que las pymes colombianas necesitan para administrar y automatizar su negocio. Combinamos la seriedad de una firma de ingeniería con la cercanía de un socio local.</p>
+    <div class="grid g3">
+      <div class="card"><h4>Eslogan</h4><p style="font:600 20px/1.25 var(--font-display);color:var(--color-text)">Software que trabaja por tu negocio.</p><p style="margin-top:8px">En inglés: “Software that works for your business.”</p></div>
+      <div class="card"><h4>Promesa</h4><p>Tecnología seria, explicada en simple y hecha a la medida.</p></div>
+      <div class="card"><h4>Arquetipo</h4><p><b>Creador</b> (construimos a la medida) + <b>Sabio</b> (criterio y seguridad), con un matiz de <b>Amigo</b> (cercanos y sin tecnicismos).</p></div>
+    </div>
+    <div class="grid g4 keep2">
+      <div class="card"><h4>Pragmatismo</h4><p>Resolvemos el problema real, sin humo.</p></div>
+      <div class="card"><h4>Seguridad</h4><p>Datos protegidos, código mantenible y acompañamiento después de la entrega.</p></div>
+      <div class="card"><h4>Adaptabilidad</h4><p>La solución crece con la empresa: empieza pequeña y escala.</p></div>
+      <div class="card"><h4>Cercanía</h4><p>Equipo colombiano, en español y con respuesta humana.</p></div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="ch" id="logo">
+    <span class="ch-num">02</span>
+    <h2>Logo</h2>
+    <p class="intro">El símbolo <b>Ascenso</b> son tres escalones iguales: diagnóstico, construcción y crecimiento. Es llevar el negocio al siguiente nivel con pasos prácticos. Va siempre a la izquierda del nombre y también funciona solo.</p>
+    <div class="grid g2">
+      <div class="card">
+        <h4>Construcción</h4>
+        <div class="construct">
+          <svg viewBox="0 0 64 64" aria-label="Retícula de construcción del símbolo">
+            <defs><pattern id="grid" width="7" height="7" patternUnits="userSpaceOnUse" x="1" y="-1"><path d="M7 0H0V7" fill="none" stroke="#DAD6CB" stroke-width=".3"/></pattern></defs>
+            <rect width="64" height="64" fill="url(#grid)"/>
+            <path d="M8 57H27V43H41V29H55V6H45V19H31V33H17V47H8Z" fill="#1C5A43" opacity=".9"/>
+            <g stroke="#E3B23C" stroke-width=".5" stroke-dasharray="1 1" fill="none"><path d="M8 47V57M8 47H17"/><path d="M17 33V47"/><path d="M27 43H41"/></g>
+            <g font-family="JetBrains Mono, monospace" font-size="2.6" fill="#59615A">
+              <text x="18" y="62">14</text><text x="32" y="48">14</text><text x="2" y="53">10</text>
+            </g>
+          </svg>
+        </div>
+        <p class="cap">Retícula de 64 unidades. Escalones de 14 × 14 y trazo de 10. La forma es un polígono relleno de 12 vértices, sin curvas.</p>
+      </div>
+      <div class="card">
+        <h4>Lockup horizontal</h4>
+        <div class="stage on-papel" style="min-height:150px"><img src="../03-logo-final/lockup/lockup-degradado-claro.svg" alt="Lockup" style="height:56px"></div>
+        <ul style="margin-top:14px">
+          <li>Nombre: <b>Space Grotesk 600</b>, tracking −2 %, convertido a trazados.</li>
+          <li>Altura del símbolo = <b>1.4 × altura de mayúscula</b> del nombre, centrado sobre ella.</li>
+          <li>Espacio símbolo-nombre = <b>0.32 × cuerpo</b> del nombre.</li>
+          <li>El nombre siempre a la <b>derecha</b> y siempre escrito “Pragmatis”, con P mayúscula.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="ch" id="proteccion">
+    <span class="ch-num">03</span>
+    <h2>Zona de protección y tamaños mínimos</h2>
+    <p class="intro">La unidad <b>X</b> es el alto de un escalón del símbolo. Alrededor del logo debe quedar libre al menos <b>1 X</b>: ni texto, ni bordes, ni otros logos.</p>
+    <div class="grid g2">
+      <div class="card" style="display:grid;place-items:center;padding:36px">
+        <div class="clear"><span class="x t"></span><span class="x b"></span><span class="x l"></span><span class="x r"></span><span class="lbl">X</span>
+          <img src="../03-logo-final/lockup/lockup-tinta.svg" alt="Lockup con zona de protección"></div>
+        <p class="cap" style="text-align:center">Zona libre = 1 X en todos los lados (X = alto de un escalón).</p>
+      </div>
+      <div class="card">
+        <h4>Tamaños mínimos</h4>
+        <div class="tw" style="margin-top:6px"><table>
+          <tr><th>Pieza</th><th>Digital</th><th>Impreso</th></tr>
+          <tr><td>Lockup horizontal</td><td>96 px de ancho</td><td>25 mm de ancho</td></tr>
+          <tr><td>Símbolo solo</td><td>24 px</td><td>6 mm</td></tr>
+          <tr><td>Símbolo menor a 24 px</td><td>Usa <code>favicon.svg</code>, dibujado sobre retícula de 16 px</td><td>No aplica</td></tr>
+        </table></div>
+        <p class="cap">Por debajo de 24 px el degradado se vuelve borroso. Usa siempre la versión de una tinta.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="ch" id="versiones">
+    <span class="ch-num">04</span>
+    <h2>Versiones y cuándo usarlas</h2>
+    <p class="intro">La versión principal es el <b>degradado</b>. La versión <b>monocromática</b> se usa cuando hay limitaciones de impresión, sellos o fondos complejos, o cuando la pieza ya tiene mucho color.</p>
+    <div class="grid g3">
+      <div><div class="stage on-tinta"><img src="../03-logo-final/lockup/lockup-degradado-oscuro.svg" alt="" style="height:44px"></div><p class="cap"><b>Principal sobre oscuro</b> · lockup-degradado-oscuro.svg</p></div>
+      <div><div class="stage on-papel"><img src="../03-logo-final/lockup/lockup-degradado-claro.svg" alt="" style="height:44px"></div><p class="cap"><b>Principal sobre claro</b> · lockup-degradado-claro.svg</p></div>
+      <div><div class="stage on-verde"><img src="../03-logo-final/lockup/lockup-papel.svg" alt="" style="height:44px"></div><p class="cap"><b>Sobre verde de marca</b> · lockup-papel.svg</p></div>
+      <div><div class="stage on-tinta"><img src="../03-logo-final/lockup/lockup-papel.svg" alt="" style="height:44px"></div><p class="cap"><b>Mono claro</b> · lockup-papel.svg</p></div>
+      <div><div class="stage on-blanco"><img src="../03-logo-final/lockup/lockup-tinta.svg" alt="" style="height:44px"></div><p class="cap"><b>Mono oscuro</b> · lockup-tinta.svg</p></div>
+      <div><div class="stage on-maiz"><img src="../03-logo-final/lockup/lockup-tinta.svg" alt="" style="height:44px"></div><p class="cap"><b>Sobre maíz</b> · lockup-tinta.svg</p></div>
+    </div>
+    <h3>Símbolo como identificador</h3>
+    <p class="muted">En la foto de perfil, el ícono de la app, el favicon y las marcas de agua de videos, el símbolo va solo. Foto de perfil recomendada: <b>verde con símbolo papel</b>.</p>
+    <div class="grid g4 keep2">
+      <div class="stage on-verde" style="min-height:140px"><img src="../03-logo-final/simbolo/simbolo-papel.svg" alt="" style="height:56px"></div>
+      <div class="stage on-tinta" style="min-height:140px"><img src="../03-logo-final/simbolo/simbolo-degradado-oscuro.svg" alt="" style="height:56px"></div>
+      <div class="stage on-maiz" style="min-height:140px"><img src="../03-logo-final/simbolo/simbolo-tinta.svg" alt="" style="height:56px"></div>
+      <div class="stage on-papel" style="min-height:140px"><img src="../03-logo-final/simbolo/simbolo-degradado-claro.svg" alt="" style="height:56px"></div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="ch" id="incorrectos">
+    <span class="ch-num">05</span>
+    <h2>Usos incorrectos</h2>
+    <p class="intro">El logo se usa siempre desde los archivos originales. Nunca se redibuja ni se modifica.</p>
+    <div class="grid g4 keep2">
+      <div class="dont"><div class="stage on-papel"><span class="x">✕</span><img src="../03-logo-final/lockup/lockup-degradado-claro.svg" alt="" style="transform:scaleX(1.45)"></div><p>No lo estires ni lo comprimas.</p></div>
+      <div class="dont"><div class="stage on-papel"><span class="x">✕</span><img src="../03-logo-final/lockup/lockup-degradado-claro.svg" alt="" style="transform:rotate(-12deg)"></div><p>No lo rotes.</p></div>
+      <div class="dont"><div class="stage on-papel"><span class="x">✕</span><img src="../03-logo-final/lockup/lockup-degradado-claro.svg" alt="" style="filter:hue-rotate(150deg) saturate(1.6)"></div><p>No cambies los colores fuera de la paleta.</p></div>
+      <div class="dont"><div class="stage on-tinta"><span class="x">✕</span><img src="../03-logo-final/lockup/lockup-degradado-claro.svg" alt=""></div><p>No uses la versión clara sobre fondo oscuro (el nombre desaparece).</p></div>
+      <div class="dont"><div class="stage on-papel"><span class="x">✕</span><img src="../03-logo-final/lockup/lockup-degradado-claro.svg" alt="" style="filter:drop-shadow(4px 5px 3px rgb(0 0 0 / .45))"></div><p>No agregues sombras, brillos ni efectos.</p></div>
+      <div class="dont"><div class="stage on-papel"><span class="x">✕</span><span class="fake-lock" style="flex-direction:row-reverse">Pragmatis<img src="../03-logo-final/simbolo/simbolo-degradado-claro.svg" alt=""></span></div><p>No cambies el orden: el nombre va siempre a la derecha.</p></div>
+      <div class="dont"><div class="stage on-papel"><span class="x">✕</span><span class="fake-lock" style="font-family:Georgia,serif;font-weight:400"><img src="../03-logo-final/simbolo/simbolo-degradado-claro.svg" alt="">Pragmatis</span></div><p>No reemplaces la tipografía del nombre.</p></div>
+      <div class="dont"><div class="stage photo"><span class="x">✕</span><img src="../03-logo-final/lockup/lockup-degradado-claro.svg" alt=""></div><p>No lo pongas sobre fotos sin contraste. Usa la versión mono o un fondo sólido.</p></div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="ch" id="color">
+    <span class="ch-num">06</span>
+    <h2>Color · Paleta Páramo</h2>
+    <p class="intro">Inspirada en el páramo y el café: un verde profundo, estable y adulto, con la calidez del maíz. La base casi negra y el papel crema sostienen la sobriedad. Ningún competidor del segmento (Siigo, Alegra, Treinta, Bold) usa esta combinación.</p>
+    <div class="ratio" aria-label="Proporción de uso">
+      <span style="flex:45;background:var(--pg-papel);color:var(--pg-tinta);border:1px solid var(--color-border)">Papel 45 %</span>
+      <span style="flex:30;background:var(--pg-tinta);color:var(--pg-papel)">Tinta 30 %</span>
+      <span style="flex:15;background:var(--pg-verde);color:#fff">Verde 15 %</span>
+      <span style="flex:10;background:var(--pg-maiz);color:var(--pg-tinta)">Maíz</span>
+    </div>
+    <div class="grid g4 keep2">
+      <div class="swatch"><div class="chip" style="background:var(--pg-tinta);color:var(--pg-papel)">Tinta</div><div class="meta"><b>#0E1511</b>RGB 14 21 17<br>Fondos oscuros y texto</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--pg-papel)">Papel</div><div class="meta"><b>#F4F2EB</b>RGB 244 242 235<br>Fondo claro principal</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--pg-verde);color:#fff">Verde páramo</div><div class="meta"><b>#1C5A43</b>RGB 28 90 67<br>Color de marca</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--pg-maiz)">Maíz</div><div class="meta"><b>#E3B23C</b>RGB 227 178 60<br>Acento y CTA sobre oscuro</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--pg-arena)">Arena</div><div class="meta"><b>#EBE7DC</b>Secciones alternas</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--pg-grafito);color:var(--pg-papel)">Grafito</div><div class="meta"><b>#1A231E</b>Superficies sobre tinta</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--pg-verde-luz)">Verde luz</div><div class="meta"><b>#6CC19A</b>Verde sobre oscuro</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--pg-texto-2);color:#fff">Texto 2</div><div class="meta"><b>#59615A</b>Texto secundario en claro</div></div>
+    </div>
+    <h3>Degradados de firma</h3>
+    <div class="grid g2">
+      <div class="grad" style="background:var(--pg-degradado-claro)">Sobre claro · #1C5A43 → #3C8C68 → #A87B12</div>
+      <div class="grad" style="background:var(--pg-degradado-oscuro);color:var(--pg-tinta)">Sobre oscuro · #2F7A5A → #6CC19A → #E3B23C</div>
+    </div>
+    <p class="muted" style="margin-top:10px">Se usan solo en el símbolo, en detalles gráficos y en fondos de redes, nunca detrás de texto pequeño. Hay dos versiones porque el maíz puro casi desaparece sobre papel (1.75:1) y el verde páramo se pierde sobre tinta (2.29:1).</p>
+
+    <h3>Combinaciones accesibles (WCAG 2.x)</h3>
+    <div class="tw"><table>
+      <tr><th>Texto / fondo</th><th>Contraste</th><th>Uso</th></tr>
+      <tr><td><i class="dot" style="background:#0E1511"></i>Tinta / papel</td><td class="ok">16.53 AAA</td><td>Texto principal</td></tr>
+      <tr><td><i class="dot" style="background:#59615A"></i>Texto 2 / papel</td><td class="ok">5.71 AA</td><td>Texto secundario (sobre arena: 5.18)</td></tr>
+      <tr><td><i class="dot" style="background:#1C5A43"></i>Verde / papel</td><td class="ok">7.23 AAA</td><td>Enlaces, etiquetas, títulos de sección</td></tr>
+      <tr><td><i class="dot" style="background:#fff"></i>Blanco / verde</td><td class="ok">8.10 AAA</td><td>Botón principal sobre claro</td></tr>
+      <tr><td><i class="dot" style="background:#E3B23C"></i>Tinta / maíz</td><td class="ok">9.43 AAA</td><td>Botón principal sobre oscuro</td></tr>
+      <tr><td><i class="dot" style="background:#6CC19A"></i>Verde luz / tinta</td><td class="ok">8.58 AAA</td><td>Enlaces y acentos sobre oscuro</td></tr>
+      <tr><td><i class="dot" style="background:#A7AFA8"></i>Gris oscuro / tinta</td><td class="ok">8.24 AAA</td><td>Texto secundario sobre oscuro</td></tr>
+      <tr><td><i class="dot" style="background:#7E5E00"></i>Maíz texto / papel</td><td class="ok">5.37 AA</td><td>Maíz como texto sobre claro</td></tr>
+      <tr><td><i class="dot" style="background:#E3B23C"></i>Maíz / papel</td><td class="no">1.75 ✗</td><td>Nunca texto maíz sobre claro</td></tr>
+      <tr><td><i class="dot" style="background:#1C5A43"></i>Verde / tinta</td><td class="no">2.29 ✗</td><td>Nunca verde páramo sobre tinta: usa verde luz</td></tr>
+      <tr><td><i class="dot" style="background:#0E1511;opacity:.5"></i>Tinta al 50 % / papel</td><td class="no">3.39 ✗</td><td>Texto tenue: mínimo 60 % de opacidad (4.69)</td></tr>
+    </table></div>
+  </section>
+
+  <!-- 7 -->
+  <section class="ch" id="tipografia">
+    <span class="ch-num">07</span>
+    <h2>Tipografía</h2>
+    <p class="intro">Tres familias de Google Fonts (licencia OFL), todas con soporte completo de español (ñ, tildes, ¿, ¡).</p>
+    <div class="grid g3">
+      <div class="card"><p class="type-hero" style="font-size:64px">Aa</p><h4 style="margin-top:12px">Space Grotesk</h4><p>Nombre, títulos y cifras destacadas. Pesos 500 y 600. Geométrica, con detalles técnicos.</p></div>
+      <div class="card"><p style="font:500 64px/0.95 var(--font-body);letter-spacing:-.02em">Aa</p><h4 style="margin-top:12px">Inter Tight</h4><p>Texto corrido, interfaz, botones y formularios. Pesos 400, 500 y 600. Máxima legibilidad.</p></div>
+      <div class="card"><p style="font:400 56px/1.05 var(--font-mono)">Aa</p><h4 style="margin-top:12px">JetBrains Mono</h4><p>Datos, precios, código y etiquetas técnicas. Peso 400. Úsala con moderación.</p></div>
+    </div>
+    <h3>Escala</h3>
+    <div>
+      <div class="spec"><small>Display · Space Grotesk 600<br>72 px · interlineado 1.05 · −2.5 %</small><span style="font:600 var(--pg-text-5xl)/1.05 var(--font-display);letter-spacing:-.025em">Software que trabaja</span></div>
+      <div class="spec"><small>H2 · Space Grotesk 600<br>40 px · interlineado 1.1 · −1.5 %</small><span style="font:600 var(--pg-text-3xl)/1.1 var(--font-display);letter-spacing:-.015em">Automatiza lo repetitivo</span></div>
+      <div class="spec"><small>H3 · Space Grotesk 600<br>20 px · interlineado 1.25</small><span style="font:600 var(--pg-text-xl)/1.25 var(--font-display)">Inventario conectado</span></div>
+      <div class="spec"><small>Texto · Inter Tight 400<br>16 px · interlineado 1.55</small><span>Conectamos tus ventas, tu bodega y tu facturación en un solo sistema, hecho a la medida de tu operación.</span></div>
+      <div class="spec"><small>Etiqueta · Inter Tight 500<br>14 px</small><span style="font-size:14px;font-weight:500;color:var(--pg-verde)">Servicios clave</span></div>
+      <div class="spec"><small>Dato · JetBrains Mono 400<br>14 px</small><span style="font:400 14px var(--font-mono)">$ 1.250.000 COP · 99,9 % disponibilidad</span></div>
+    </div>
+    <p class="muted" style="margin-top:14px">Formatos colombianos: punto para los miles y coma para los decimales ($ 1.250.000 · 99,9 %). Fechas: “28 de octubre de 2026”.</p>
+  </section>
+
+  <!-- 8 -->
+  <section class="ch" id="voz">
+    <span class="ch-num">08</span>
+    <h2>Tono de voz</h2>
+    <p class="intro">Hablamos como un ingeniero de confianza que también entiende de negocios: claro, seguro y cercano. Nunca técnico por presumir ni exagerado.</p>
+    <div class="grid g4 keep2">
+      <div class="card"><h4>Claros</h4><p>Frases cortas. Primero el beneficio y después el cómo.</p></div>
+      <div class="card"><h4>Seguros</h4><p>Afirmamos lo que podemos cumplir, con datos concretos.</p></div>
+      <div class="card"><h4>Cercanos</h4><p>Tuteamos (“tu negocio”). Español colombiano neutro, sin modismos regionales fuertes.</p></div>
+      <div class="card"><h4>Prácticos</h4><p>Cada mensaje termina en algo que el cliente puede hacer.</p></div>
+    </div>
+
+    <h3>Así sí, así no</h3>
+    <div class="say"><div class="no-col"><div class="h">Así no</div>Implementamos arquitecturas cloud-native escalables con microservicios.</div><div class="yes-col"><div class="h">Así sí</div>Tu sistema crece contigo, sin que tengas que cambiarlo.</div></div>
+    <div class="say"><div class="no-col"><div class="h">Así no</div>¡¡Revolucionamos tu empresa con IA disruptiva!! 🚀🔥</div><div class="yes-col"><div class="h">Así sí</div>Automatizamos tu facturación para que dejes de hacerla a mano.</div></div>
+    <div class="say"><div class="no-col"><div class="h">Así no</div>Estimado cliente, por medio de la presente nos permitimos informarle…</div><div class="yes-col"><div class="h">Así sí</div>Hola, Carolina: te comparto la propuesta que conversamos.</div></div>
+    <div class="say"><div class="no-col"><div class="h">Así no</div>Error 500: excepción no controlada.</div><div class="yes-col"><div class="h">Así sí</div>No pudimos enviar tu mensaje. Inténtalo de nuevo o escríbenos a contacto@pragmatis.co.</div></div>
+
+    <div class="grid g2">
+      <div class="card"><h4>Palabras que usamos</h4><p>tu negocio · a la medida · automatizar · acompañamiento · paso a paso · resultados · claro · seguro</p></div>
+      <div class="card"><h4>Palabras que evitamos</h4><p>disruptivo · revolucionario · sinergia · de vanguardia · líderes del mercado · soluciones 360 · siglas sin explicar</p></div>
+    </div>
+    <div class="grid g2">
+      <div class="card"><h4>Emojis</h4><p>Con moderación y solo en redes y mensajería (máximo uno por texto). En la web, las propuestas y los correos formales no se usan emojis: se usan íconos SVG.</p></div>
+      <div class="card"><h4>Inglés</h4><p>El español es el idioma principal. El contenido en inglés mantiene el mismo tono y el eslogan se traduce como “Software that works for your business.” “Pragmatis” no se traduce.</p></div>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="ch" id="archivos">
+    <span class="ch-num">09</span>
+    <h2>Archivos y aplicaciones</h2>
+    <div class="tw"><table>
+      <tr><th>Necesito…</th><th>Archivo</th></tr>
+      <tr><td>Logo para la web o una presentación</td><td><code>brand/03-logo-final/lockup/</code> (SVG)</td></tr>
+      <tr><td>Logo en PNG (Word, redes, terceros)</td><td><code>brand/03-logo-final/png/</code></td></tr>
+      <tr><td>Foto de perfil</td><td><code>png/perfil-verde-1080.png</code></td></tr>
+      <tr><td>Publicación o historia</td><td><code>redes/publicacion-1080.svg</code> · <code>redes/historia-1080x1920.svg</code></td></tr>
+      <tr><td>Firma de correo</td><td><code>brand/04-mockups/firma-correo.html</code></td></tr>
+      <tr><td>Portada de propuesta</td><td><code>brand/04-mockups/propuesta-portada.html</code> (A4, imprimir a PDF)</td></tr>
+      <tr><td>Colores y tipografía en código</td><td><code>brand/06-tokens/tokens.css</code></td></tr>
+      <tr><td>Regenerar todo con otro color o medida</td><td><code>brand/03-logo-final/_fuente/generar.py</code></td></tr>
+    </table></div>
+    <p class="muted" style="margin-top:14px">Ejemplos de aplicación: <a href="../04-mockups/index.html">mockups de la web, redes, correo y propuesta</a>.</p>
+  </section>
+</main>
+
+<footer><div class="wrap"><img src="../03-logo-final/lockup/lockup-degradado-oscuro.svg" alt="Pragmatis"><br>Guía de marca v1.0 · Software que trabaja por tu negocio · pragmatis.co</div></footer>
+</body>
+</html>

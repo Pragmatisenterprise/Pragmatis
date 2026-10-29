@@ -4,7 +4,9 @@
 
 @layer base {
   html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
-  body { @apply bg-white font-sans text-charcoal antialiased; }
+  body { @apply bg-papel font-sans text-tinta antialiased; }
+  h1, h2, h3 { @apply font-display; }
+  :focus-visible { @apply outline outline-2 outline-offset-2 outline-paramo; }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
@@ -13,8 +15,10 @@
 
 @layer components {
   .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-medium transition-colors duration-200; }
-  .btn-primary { @apply btn bg-violet text-white hover:bg-violet-glow; }
-  .btn-ghost { @apply btn text-white/70 hover:text-white; }
-  .btn-dark { @apply btn bg-charcoal text-white hover:bg-panel; }
-  .eyebrow { @apply inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70; }
+  /* CTA principal: maíz con texto tinta (9.43:1). Se usa sobre fondos oscuros */
+  .btn-primary { @apply btn bg-maiz font-semibold text-tinta hover:bg-maiz-claro; }
+  .btn-ghost { @apply btn text-papel/70 hover:text-papel; }
+  .btn-dark { @apply btn bg-tinta text-papel hover:bg-grafito; }
+  .eyebrow { @apply inline-flex items-center gap-2 rounded-full border border-papel/10 bg-papel/5 px-3 py-1 text-xs text-papel/75; }
+  .dark-section :focus-visible { @apply outline-maiz; }
 }

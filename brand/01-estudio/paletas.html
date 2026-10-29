@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pragmatis · Opciones de paleta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { background: #EDEDEE; color: #0A0A0B; font: 400 15px/1.55 "Inter Tight", system-ui, sans-serif; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 48px 16px 96px; }
+  h1 { font: 600 clamp(28px, 4vw, 44px)/1.1 "Space Grotesk", sans-serif; letter-spacing: -0.02em; }
+  .lead { color: #5C5C66; max-width: 72ch; margin-top: 12px; }
+
+  /* Cada paleta define sus variables en la sección */
+  section.pal { margin-top: 48px; border-radius: 22px; overflow: hidden; background: var(--papel); color: var(--tinta); border: 1px solid rgba(0,0,0,.08); }
+  .p-head { padding: 28px 24px 8px; display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; }
+  .p-num { font: 400 13px "JetBrains Mono", monospace; color: var(--prim); }
+  .p-head h2 { font: 600 28px/1.15 "Space Grotesk", sans-serif; letter-spacing: -0.02em; }
+  .p-head .rec { font: 600 12px "Inter Tight"; text-transform: uppercase; letter-spacing: .06em; padding: 4px 10px; border-radius: 999px; background: var(--prim); color: #fff; }
+  .p-story { padding: 0 24px; color: var(--texto2); max-width: 80ch; }
+
+  .showcase { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 12px; padding: 24px; }
+  .panel { border-radius: 16px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; min-height: 220px; position: relative; }
+  .on-tinta { background: var(--tinta); color: var(--papel); }
+  .on-papel { background: #fff; border: 1px solid rgba(0,0,0,.07); }
+  .on-grad { background: var(--grad); color: #fff; }
+  .lockup { display: inline-flex; align-items: center; gap: .42em; font: 600 clamp(26px, 3.4vw, 36px)/1 "Space Grotesk", sans-serif; letter-spacing: -0.02em; }
+  .lockup svg { width: 1.05em; height: 1.05em; flex: none; }
+  .slogan { margin-top: 14px; font-size: 15px; opacity: .75; }
+  .cap { font: 400 11px "JetBrains Mono", monospace; opacity: .6; margin-top: 16px; }
+  .center { display: grid; place-items: center; flex: 1; }
+  .avatar { width: 112px; height: 112px; border-radius: 50%; display: grid; place-items: center; background: var(--grad); color: #fff; }
+  .avatar svg { width: 54%; height: 54%; }
+
+  .ui { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 24px 24px; }
+  .ui .panel { min-height: 0; gap: 14px; }
+  .ui h3 { font: 600 22px/1.2 "Space Grotesk", sans-serif; letter-spacing: -0.01em; }
+  .ui p { font-size: 14px; }
+  .muted-l { color: var(--texto2); }
+  .muted-d { color: color-mix(in srgb, var(--papel) 70%, transparent); }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .btn { display: inline-flex; align-items: center; padding: 11px 18px; border-radius: 10px; font-weight: 500; font-size: 14px; text-decoration: none; }
+  .btn-prim { background: var(--prim); color: #fff; }
+  .btn-acento { background: var(--acento); color: var(--tinta); }
+  .link-l { color: var(--prim); font-weight: 500; }
+  .link-d { color: var(--prim-luz); font-weight: 500; }
+  .badge { font: 500 12px "Inter Tight"; padding: 3px 10px; border-radius: 999px; }
+  .badge-l { background: color-mix(in srgb, var(--acento) 22%, #fff); color: var(--acento-txt); }
+  .badge-d { background: color-mix(in srgb, var(--prim-luz) 18%, transparent); color: var(--prim-luz); }
+
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; padding: 0 24px 24px; }
+  .sw { border-radius: 12px; overflow: hidden; background: #fff; border: 1px solid rgba(0,0,0,.07); }
+  .chip { height: 64px; }
+  .meta { padding: 8px 10px; font: 400 11.5px/1.5 "JetBrains Mono", monospace; color: #3F3F46; }
+  .meta b { font: 600 13px "Inter Tight"; display: block; color: #0A0A0B; }
+  .why { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; padding: 18px 24px 26px; border-top: 1px solid rgba(0,0,0,.07); font-size: 14px; }
+  .why h4 { font: 600 12px "Inter Tight"; text-transform: uppercase; letter-spacing: .06em; color: var(--texto2); margin-bottom: 4px; }
+
+  @media (max-width: 860px) {
+    .showcase, .ui, .why { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="asc" viewBox="0 0 64 64"><path d="M8 52h14V38h14V24h14V6" fill="none" stroke="currentColor" stroke-width="10" stroke-linejoin="miter"/></symbol>
+  <defs id="grads"></defs>
+</svg>
+
+<div class="wrap">
+  <h1>Opciones de paleta para Pragmatis</h1>
+  <p class="lead">Las cuatro opciones mantienen una base casi negra y un papel cálido en lugar del blanco puro: así la marca conserva la sobriedad y se ve menos fría. Cada una se aplica al símbolo <b>Ascenso</b>, al eslogan elegido y a una pieza de interfaz. Los contrastes están calculados con la fórmula WCAG 2.x. La 00 es la paleta actual, como referencia.</p>
+  <main id="pals"></main>
+</div>
+
+<script>
+const pals = [
+  { name: "Actual · Índigo frío", ref: true,
+    v: { tinta: "#0A0A0B", papel: "#FFFFFF", texto2: "#5C5C66", prim: "#5B3DF5", primLuz: "#8B74FF", mid: "#2E7BFF", acento: "#2FD4A0", acentoTxt: "#0E7A57" },
+    story: "La propuesta de la fase 1, como referencia. Es tecnológica y se diferencia de la competencia, pero es fría: el negro puro, el blanco puro y el azul-verde se sienten más a máquina que a personas.",
+    c: { "Texto / papel": "19.79", "Blanco / primario": "6.12", "Primario luz / tinta": "5.69", "Tinta / acento": "10.41" },
+    unica: "Media-alta: el índigo está libre en el segmento, pero el degradado azul-verde es común en tecnología.",
+    humana: "Baja: no tiene calidez.",
+    sobria: "Alta." },
+  { name: "Atardecer · Índigo + ámbar", rec: true,
+    v: { tinta: "#100E16", papel: "#F7F4EF", texto2: "#5E5A66", prim: "#4B36E0", primLuz: "#9C8CFF", mid: "#E0607E", acento: "#F0A93B", acentoTxt: "#9A5B00" },
+    story: "Conserva el índigo, que ya es tu diferenciador, y le suma la calidez de un atardecer: el degradado pasa de índigo a rosa coral y termina en ámbar. Leído sobre el símbolo Ascenso, es literalmente subir hacia la luz: el negocio que pasa al siguiente nivel. El papel crema y la tinta con un leve tono violeta suavizan todo sin perder seriedad.",
+    c: { "Texto / papel": "17.46", "Blanco / primario": "7.23 AAA", "Primario luz / tinta": "6.94", "Tinta / ámbar": "9.52 AAA", "Ámbar texto / papel": "4.95 AA" },
+    unica: "Alta: nadie del segmento combina índigo con ámbar. El degradado es propio y reconocible.",
+    humana: "Alta: el ámbar y el coral aportan luz cálida y optimismo.",
+    sobria: "Alta: el índigo sigue mandando y los colores cálidos son solo acento." },
+  { name: "Arcilla · Terracota + ámbar",
+    v: { tinta: "#17130F", papel: "#F6F1EA", texto2: "#62584E", prim: "#A8401F", primLuz: "#E58A64", mid: "#D2643C", acento: "#E9A23B", acentoTxt: "#8A5A00" },
+    story: "Es la más humana: la terracota remite al barro, al ladrillo y a la artesanía colombiana, es decir, a construir con las manos. Con la tinta café-negra y el papel arena se siente como un taller de ingeniería con oficio. Es la más alejada de cualquier competidor de software.",
+    c: { "Texto / papel": "16.44", "Blanco / primario": "6.14 AA", "Primario luz / tinta": "7.17 AAA", "Tinta / ámbar": "8.53 AAA", "Ámbar texto / papel": "5.27 AA" },
+    unica: "Muy alta en el software para pymes de Colombia. Ojo: otras marcas tecnológicas globales usan tonos arcilla (por ejemplo, algunos productos de IA).",
+    humana: "Muy alta.",
+    sobria: "Media-alta: es seria por la tinta oscura, pero se lee menos tecnológica." },
+  { name: "Páramo · Verde profundo + maíz",
+    v: { tinta: "#0E1511", papel: "#F4F2EB", texto2: "#59615A", prim: "#1C5A43", primLuz: "#6CC19A", mid: "#3C8C68", acento: "#E3B23C", acentoTxt: "#7E5E00" },
+    story: "Inspirada en el páramo y el café: un verde bosque profundo, que transmite estabilidad, crecimiento y confianza (lo usan bancos y consultoras serias), con un acento maíz cálido. Es muy distinto del turquesa brillante de Alegra: oscuro, mate y adulto.",
+    c: { "Texto / papel": "16.53", "Blanco / primario": "8.10 AAA", "Primario luz / tinta": "8.58 AAA", "Tinta / maíz": "9.43 AAA", "Maíz texto / papel": "5.37 AA" },
+    unica: "Media-alta: es verde, aunque mucho más profundo que el de la competencia.",
+    humana: "Alta: la referencia a la naturaleza y a Colombia es directa.",
+    sobria: "Muy alta: es la más seria y financiera de las cuatro." },
+  { name: "Ciruela · Ciruela + durazno",
+    v: { tinta: "#141013", papel: "#F6F0EA", texto2: "#625660", prim: "#6B2D5A", primLuz: "#D58AB9", mid: "#B8507A", acento: "#F2A07B", acentoTxt: "#9A4A22" },
+    story: "Elegante y cercana: el ciruela profundo es poco común en software, se ve premium y tiene carácter, y el durazno lo vuelve cálido. Transmite \"empresa boutique, atención personal\". Es la apuesta más audaz.",
+    c: { "Texto / papel": "16.68", "Blanco / primario": "9.78 AAA", "Primario luz / tinta": "7.33 AAA", "Tinta / durazno": "9.06 AAA", "Durazno texto / papel": "5.50 AA" },
+    unica: "Muy alta.",
+    humana: "Alta.",
+    sobria: "Media: algunos dueños de pyme pueden leerla como moda o belleza más que como tecnología." },
+];
+
+const grads = document.getElementById("grads");
+grads.innerHTML = pals.map((p, i) => `
+  <linearGradient id="g${i}" gradientUnits="userSpaceOnUse" x1="8" y1="56" x2="56" y2="6">
+    <stop offset="0" stop-color="${p.v.prim}"/><stop offset=".55" stop-color="${p.v.mid}"/><stop offset="1" stop-color="${p.v.acento}"/>
+  </linearGradient>`).join("");
+
+const sym = (stroke = "currentColor") =>
+  `<svg viewBox="0 0 64 64" aria-hidden="true"><use href="#asc" style="stroke:${stroke}"/></svg>`;
+
+const swatch = (label, hex) =>
+  `<div class="sw"><div class="chip" style="background:${hex}"></div><div class="meta"><b>${label}</b>${hex}</div></div>`;
+
+document.getElementById("pals").innerHTML = pals.map((p, i) => {
+  const v = p.v;
+  const vars = `--tinta:${v.tinta};--papel:${v.papel};--texto2:${v.texto2};--prim:${v.prim};--prim-luz:${v.primLuz};--acento:${v.acento};--acento-txt:${v.acentoTxt};--grad:linear-gradient(135deg,${v.prim} 0%,${v.mid} 55%,${v.acento} 100%)`;
+  return `
+<section class="pal" style="${vars}">
+  <div class="p-head"><span class="p-num">0${i}</span><h2>${p.name}</h2>${p.rec ? '<span class="rec">Recomendada</span>' : ""}</div>
+  <p class="p-story">${p.story}</p>
+
+  <div class="showcase">
+    <div class="panel on-tinta">
+      <div><span class="lockup">${sym(`url(#g${i})`)}Pragmatis</span><p class="slogan">Software que trabaja por tu negocio.</p></div>
+      <span class="cap">lockup · degradado sobre tinta</span>
+    </div>
+    <div class="panel on-papel">
+      <div class="center"><span class="lockup" style="font-size:30px">${sym("var(--tinta)")}Pragmatis</span></div>
+      <span class="cap">una tinta sobre papel</span>
+    </div>
+    <div class="panel on-papel">
+      <div class="center"><div class="avatar">${sym("#fff")}</div></div>
+      <span class="cap">perfil · degradado</span>
+    </div>
+  </div>
+
+  <div class="ui">
+    <div class="panel on-papel">
+      <span class="badge badge-l" style="align-self:flex-start">Automatización</span>
+      <h3>Tu inventario se actualiza solo.</h3>
+      <p class="muted-l">Conectamos ventas, bodega y facturación en un solo sistema hecho para tu negocio.</p>
+      <div class="row"><a class="btn btn-prim" href="#">Agenda una asesoría</a><a class="link-l" href="#">Ver casos →</a></div>
+    </div>
+    <div class="panel on-tinta">
+      <span class="badge badge-d" style="align-self:flex-start">Para pymes en Colombia</span>
+      <h3>Software que trabaja por tu negocio.</h3>
+      <p class="muted-d">Páginas web, apps y soluciones a la medida, con acompañamiento real.</p>
+      <div class="row"><a class="btn btn-acento" href="#">Hablemos</a><a class="link-d" href="#">Cómo trabajamos →</a></div>
+    </div>
+  </div>
+
+  <div class="swatches">
+    ${swatch("Tinta", v.tinta)}${swatch("Papel", v.papel)}${swatch("Primario", v.prim)}${swatch("Primario luz", v.primLuz)}${swatch("Puente", v.mid)}${swatch("Acento", v.acento)}${swatch("Texto 2", v.texto2)}
+  </div>
+
+  <div class="why">
+    <div><h4>Contraste (WCAG)</h4>${Object.entries(p.c).map(([k, val]) => `${k}: <b>${val}</b>`).join("<br>")}</div>
+    <div><h4>Única</h4>${p.unica}<h4 style="margin-top:12px">Humana</h4>${p.humana}</div>
+    <div><h4>Sobria y profesional</h4>${p.sobria}</div>
+  </div>
+</section>`;
+}).join("");
+</script>
+</body>
+</html>

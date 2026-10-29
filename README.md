@@ -56,9 +56,10 @@ El diseño parte de una plantilla de landing SaaS oscura (secciones alternadas e
 | Configuración centralizada de marca (`src/config/site.ts`) | ✅ Listo |
 | Nombre de marca (Pragmatis) | ✅ Listo |
 | Formulario de contacto + newsletter (Worker de Cloudflare + Resend) | ✅ Listo en código — falta configurar las claves y desplegar en Cloudflare |
-| SEO básico: Open Graph, `robots.txt`, `sitemap.xml` | ✅ Listo — falta cambiar `og-image.svg` por un PNG 1200×630 y confirmar el dominio |
+| SEO básico: Open Graph (PNG 1200×630), `robots.txt`, `sitemap.xml` | ✅ Listo |
 | CI (lint + build en cada push/PR) | ✅ Listo |
-| Logo definitivo y contenido real | ⏳ Pendiente |
+| Identidad de marca (logo, paleta, tipografía, guía) en `brand/` | ✅ Listo |
+| Contenido real | ⏳ Pendiente |
 | Blog con artículos reales y páginas internas | ⏳ Pendiente — hoy son tarjetas de ejemplo |
 | Despliegue, dominio y analítica | ⏳ Pendiente |
 
@@ -107,11 +108,11 @@ El front es estático (`dist/`). Las claves de Resend solo existen en el Worker 
 
 ### Diseño
 
-- Tema oscuro con secciones alternadas negro/blanco
+- Identidad Pragmatis: secciones alternadas tinta/papel, símbolo Ascenso
 - Hero con tarjetas, orbe animado y gráfica en SVG/CSS (sin imágenes pesadas)
-- Paleta propia en `tailwind.config.ts`: negro, violeta, esmeralda, orquídea y rosa
-- Tipografía Inter Tight, cargada desde Google Fonts
-- Favicon y tarjeta Open Graph en SVG
+- Paleta Páramo en `tailwind.config.ts`: tinta, papel, arena, verde páramo y maíz
+- Space Grotesk (títulos), Inter Tight (texto) y JetBrains Mono (datos), desde Google Fonts
+- Favicon, ícono de app y tarjeta Open Graph generados desde `brand/`
 
 </td>
 <td valign="top" width="50%">
@@ -154,7 +155,8 @@ pragmatis/
 │   ├── subscribe.ts        # POST: alta en la audiencia del newsletter
 │   └── utils.ts
 ├── .github/workflows/ci.yml
-├── public/                 # favicon, og-image, robots.txt, sitemap.xml
+├── brand/                  # identidad de marca: estudio, logo, mockups, guía y tokens
+├── public/                 # favicon, íconos, og-image.png, logo de firma, robots.txt, sitemap.xml
 ├── src/
 │   ├── components/
 │   │   ├── Header.tsx          # menú fijo + hamburguesa móvil
@@ -220,9 +222,9 @@ Las claves nunca van en el repo ni en variables del front (`VITE_*`).
 ## Personalización
 
 - **Nombre, correo, URL, dirección y menú:** `src/config/site.ts`. El `<title>` y las metaetiquetas viven en `index.html`.
-- **Colores y animaciones:** `tailwind.config.ts` (`ink`, `violet`, `emerald`, `orchid`, `blush`…).
+- **Colores y animaciones:** `tailwind.config.ts` (`tinta`, `papel`, `arena`, `paramo`, `maiz`…). La fuente de verdad es `brand/06-tokens/tokens.css`; las reglas de uso están en `brand/05-guia/guia-de-marca.html`.
 - **Textos de cada sección:** arreglos al inicio de cada componente en `src/components/`.
-- **Logo:** `src/components/Logo.tsx` y `public/favicon.svg`.
+- **Logo:** `src/components/Logo.tsx` (símbolo en línea) y los archivos de `brand/03-logo-final/`. Para regenerar variantes con otros colores: `brand/03-logo-final/_fuente/generar.py`.
 
 ## Despliegue
 
