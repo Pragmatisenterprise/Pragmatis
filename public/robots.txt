@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin
 
-Sitemap: https://pragmatis.co/sitemap.xml
+Sitemap: https://pragmatis.com.co/sitemap.xml

@@ -13,7 +13,7 @@
     { "binding": "DB", "database_name": "pragmatis", "database_id": "67ee0b28-2a56-46cf-bdea-351667fdeeee", "migrations_dir": "migrations" }
   ],
   "vars": {
-    "CONTACT_FROM": "Pragmatis <web@pragmatis.co>",
-    "CONTACT_TO": "contacto@pragmatis.co"
+    "CONTACT_FROM": "Pragmatis <web@pragmatis.com.co>",
+    "CONTACT_TO": "contacto@pragmatis.com.co"
   }
 }
