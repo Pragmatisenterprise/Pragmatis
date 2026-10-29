@@ -7,3 +7,6 @@ export function formatDate(value: string | null | undefined): string {
 
 export const slugify = (s: string) =>
   s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 80);
+
+// Formato colombiano: punto para los miles ($ 1.250.000).
+export const formatCop = (value: number) => `$ ${value.toLocaleString("es-CO", { maximumFractionDigits: 0 })}`;

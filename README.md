@@ -35,11 +35,11 @@ Sitio web corporativo de una empresa de soluciones de software: landing de una s
 
 ## Sobre el proyecto
 
-Pragmatis es la web de presentación de una empresa de **soluciones de software a medida**: plataformas web, automatización, integraciones y cloud. El nombre de la marca vive en un solo archivo (ver [Personalización](#-personalización)).
+Pragmatis es la web de una consultora colombiana con dos líneas de negocio: **plantillas de portales web y apps** (pago único, personalizadas con la marca de cada negocio local) y **software y automatización a la medida** para empresas. El nombre de la marca vive en un solo archivo (ver [Personalización](#-personalización)).
 
 El diseño parte de una plantilla de landing SaaS oscura (secciones alternadas en negro y blanco, degradados y mucho espacio en blanco), reconstruida desde cero con el contenido adaptado a una empresa de software:
 
-- **Una sola página, secciones claras.** Servicios, plataforma, seguridad, testimonios, blog y contacto, navegables desde el menú con scroll suave.
+- **Una sola página, secciones claras.** Servicios, plantillas (carrusel con vista previa en vivo), clientes, testimonios, nosotros, blog y contacto, navegables desde el menú con scroll suave.
 - **Responsive.** Cada sección se revisa a 390 px de ancho: el hero se compacta, los espaciados y títulos se reducen y el menú pasa a hamburguesa.
 - **Ligero.** Sin base de datos ni librería de componentes: React, Tailwind y animaciones de entrada. El único backend es un Worker de Cloudflare con dos rutas que envían correo con Resend.
 
@@ -50,7 +50,9 @@ El diseño parte de una plantilla de landing SaaS oscura (secciones alternadas e
 | Módulo | Estado |
 |---|---|
 | Base del proyecto (Vite + React + TypeScript + Tailwind) | ✅ Listo |
-| Landing: hero, beneficios, servicios, plataforma, seguridad, testimonios, blog, CTA y footer | ✅ Listo |
+| Landing: hero, servicios, cómo trabajamos, plantillas, clientes, testimonios, nosotros, blog, CTA y footer | ✅ Listo |
+| Plantillas administrables con vista previa (iframe) e imágenes en R2 | ✅ Listo |
+| Testimonios reales por enlace de un solo uso, con moderación en el admin | ✅ Listo |
 | Diseño responsive (móvil, tablet y escritorio) | ✅ Listo |
 | Animaciones de entrada (respetan `prefers-reduced-motion`) | ✅ Listo |
 | Configuración centralizada de marca (`src/config/site.ts`) | ✅ Listo |
@@ -75,7 +77,7 @@ flowchart LR
     subgraph App["⚛️ src/App.tsx — una sola página"]
         HEADER["Header\nmenú + hamburguesa móvil"]
         HERO["Hero"]
-        SECS["Benefits · CoreFeatures ·\nPlatform · Security ·\nTestimonials · Blog"]
+        SECS["Services · Process ·\nTemplates · Projects ·\nTestimonials · About · Blog"]
         FOOTER["Footer\nCTA + newsletter"]
     end
 
@@ -121,8 +123,8 @@ El front es estático (`dist/`). Las claves de Resend solo existen en el Worker 
 
 - Menú fijo con enlaces de ancla y scroll suave
 - Menú hamburguesa en móvil (`aria-expanded`)
-- Pestañas de capacidades con `role="tablist"`
-- Banda de integraciones en bucle continuo
+- Carrusel giratorio de plantillas (flechas, teclado y arrastre; lista estática con movimiento reducido)
+- Vista previa de cada plantilla a pantalla completa, en marco de escritorio o celular, con URL propia `/plantillas/:slug`
 - Animaciones de entrada por sección, desactivadas si el usuario lo pide
 - Formulario de contacto con validación, campo trampa anti-bots y estados de envío/error
 
@@ -160,11 +162,13 @@ pragmatis/
 │   ├── components/
 │   │   ├── Header.tsx          # menú fijo + hamburguesa móvil
 │   │   ├── Hero.tsx            # composición principal
-│   │   ├── Benefits.tsx        # cuatro beneficios
-│   │   ├── CoreFeatures.tsx    # tres servicios clave alternados
-│   │   ├── Platform.tsx        # panel, pestañas e integraciones
-│   │   ├── Security.tsx
-│   │   ├── Testimonials.tsx
+│   │   ├── Services.tsx        # plantillas vs. consultoría a la medida
+│   │   ├── Process.tsx         # diagnóstico, construcción, crecimiento
+│   │   ├── Templates.tsx       # carrusel de plantillas + filtros
+│   │   ├── TemplatePreview.tsx # vista previa en iframe
+│   │   ├── About.tsx           # Nosotros y valores
+│   │   ├── Testimonials.tsx    # solo testimonios aprobados
+│   │   ├── WhatsAppButton.tsx
 │   │   ├── Blog.tsx
 │   │   ├── ContactForm.tsx
 │   │   ├── Footer.tsx          # contacto + newsletter
@@ -223,6 +227,8 @@ Las claves nunca van en el repo ni en variables del front (`VITE_*`).
 - **Nombre, correo, URL, dirección y menú:** `src/config/site.ts`. El `<title>` y las metaetiquetas viven en `index.html`.
 - **Colores y animaciones:** `tailwind.config.ts` (`tinta`, `papel`, `arena`, `paramo`, `maiz`…). Las reglas de uso y los tokens CSS están en el kit de marca (`brand/`, ignorada por git y compartida fuera del repo).
 - **Textos de cada sección:** arreglos al inicio de cada componente en `src/components/`.
+- **WhatsApp, Instagram y dirección:** `src/config/site.ts`. Mientras estén vacíos, los botones correspondientes no se muestran.
+- **Plantillas, proyectos y testimonios:** se administran desde `/admin`. Los testimonios se piden con un enlace de un solo uso (pestaña Testimonios) y solo se publican al aprobarlos.
 - **Logo:** `src/components/Logo.tsx` (símbolo en línea) Las variantes del logo y el script para regenerarlas están en el kit de marca (`brand/03-logo-final/`).
 
 ## Despliegue
@@ -233,6 +239,10 @@ Se despliega en **Cloudflare Workers** (el plan gratuito permite uso comercial).
 npx wrangler login                     # una sola vez
 npx wrangler secret put RESEND_API_KEY
 npx wrangler secret put RESEND_AUDIENCE_ID
+npx wrangler secret put ADMIN_PASSWORD
+npx wrangler secret put SESSION_SECRET
+npx wrangler r2 bucket create pragmatis-media   # una sola vez: imágenes subidas desde el panel
+npm run db:migrate:remote              # aplica las migraciones pendientes de D1
 npm run deploy                         # compila y publica
 ```
 

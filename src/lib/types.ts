@@ -41,3 +41,37 @@ export interface Stats {
   devices: Ranked[];
   content: { projects: number; posts: number };
 }
+
+export interface Template {
+  id: number;
+  slug: string;
+  name: string;
+  business: string;
+  kind: "web" | "app";
+  summary: string;
+  features: string[];
+  price_from: number;
+  thumb_url: string;
+  demo_url: string;
+  sort_order?: number;
+  published?: number;
+}
+
+export interface Testimonial {
+  id: number;
+  name: string;
+  role: string;
+  company: string;
+  text: string;
+  rating: number | null;
+}
+
+export type TestimonialStatus = "invited" | "pending" | "approved" | "hidden";
+
+export interface AdminTestimonial extends Testimonial {
+  token: string;
+  client_label: string;
+  status: TestimonialStatus;
+  created_at: string;
+  submitted_at: string | null;
+}

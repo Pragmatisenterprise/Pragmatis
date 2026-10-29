@@ -1,6 +1,7 @@
 export interface Env {
   ASSETS: Fetcher;
   DB: D1Database;
+  MEDIA: R2Bucket;
   RESEND_API_KEY?: string;
   CONTACT_FROM?: string;
   CONTACT_TO?: string;

@@ -2,7 +2,7 @@ import { ArrowDown, ArrowUp, Pencil, Plus, Trash2 } from "lucide-react";
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import type { Project } from "@/lib/types";
 import { adminApi, errorMessage } from "./api";
-import { Badge, Check, ErrorBox, Field, PageTitle, TextArea, TextInput } from "./ui";
+import { Badge, Check, ErrorBox, Field, ImageUpload, PageTitle, TextArea, TextInput } from "./ui";
 
 type Draft = Pick<Project, "title" | "summary" | "category" | "image_url" | "link_url"> & { id?: number; published: boolean };
 const empty: Draft = { title: "", summary: "", category: "", image_url: "", link_url: "", published: true };
@@ -75,7 +75,7 @@ export function Projects() {
             </div>
             <Field label="Descripción"><TextArea rows={3} maxLength={400} value={draft.summary} onChange={set("summary")} /></Field>
             <div className="grid gap-4 sm:grid-cols-2">
-              <Field label="URL de la imagen" hint="Enlace a una imagen (https://…). Vacío = fondo degradado."><TextInput value={draft.image_url} onChange={set("image_url")} placeholder="https://" /></Field>
+              <ImageUpload label="Imagen" hint="Vacío = fondo degradado." value={draft.image_url} onChange={(image_url) => setDraft({ ...draft, image_url })} />
               <Field label="Enlace del proyecto" hint="Opcional. Si lo pones, la tarjeta es clicable."><TextInput value={draft.link_url} onChange={set("link_url")} placeholder="https://" /></Field>
             </div>
             <Check label="Visible en la web" checked={draft.published} onChange={(e) => setDraft({ ...draft, published: e.target.checked })} />

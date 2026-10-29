@@ -6,7 +6,7 @@ import { Markdown } from "@/lib/markdown";
 import type { Post } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { adminApi, errorMessage } from "./api";
-import { Check, ErrorBox, Field, PageTitle, TextArea, TextInput } from "./ui";
+import { Check, ErrorBox, Field, ImageUpload, PageTitle, TextArea, TextInput } from "./ui";
 
 interface Draft { title: string; slug: string; excerpt: string; content: string; tag: string; author: string; cover_url: string; published: boolean }
 const empty: Draft = { title: "", slug: "", excerpt: "", content: "", tag: "", author: "", cover_url: "", published: false };
@@ -64,7 +64,7 @@ export function PostEditor() {
           <Field label="Slug (URL)" hint={`/blog/${draft.slug || "…"}`}>
             <TextInput required maxLength={80} value={draft.slug} onChange={(e) => { setSlugTouched(true); set("slug")(e); }} />
           </Field>
-          <Field label="URL de portada" hint="Opcional. Vacío = fondo degradado."><TextInput value={draft.cover_url} onChange={set("cover_url")} placeholder="https://" /></Field>
+          <ImageUpload label="Portada" hint="Opcional. Vacío = fondo degradado." value={draft.cover_url} onChange={(url) => set("cover_url")({ target: { value: url } })} />
           <Field label="Etiqueta" hint="Ej. Tecnología, Negocios"><TextInput maxLength={30} value={draft.tag} onChange={set("tag")} /></Field>
           <Field label="Autor"><TextInput maxLength={60} value={draft.author} onChange={set("author")} /></Field>
         </div>

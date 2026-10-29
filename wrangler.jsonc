@@ -1,16 +1,22 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "pragmatis",
+  // Cuenta de Cloudflare de Pragmatis. Fijarla evita que wrangler use otra cuenta guardada en caché.
+  "account_id": "4d77170faf32b6bf7cd2903fdd47fa79",
   "main": "worker/index.ts",
   "compatibility_date": "2026-01-01",
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
     "not_found_handling": "single-page-application",
-    "run_worker_first": ["/api/*"]
+    "run_worker_first": ["/api/*", "/media/*"]
   },
   "d1_databases": [
     { "binding": "DB", "database_name": "pragmatis", "database_id": "67ee0b28-2a56-46cf-bdea-351667fdeeee", "migrations_dir": "migrations" }
+  ],
+  // Imágenes subidas desde el panel (plantillas, proyectos, blog). Crear con `wrangler r2 bucket create pragmatis-media`.
+  "r2_buckets": [
+    { "binding": "MEDIA", "bucket_name": "pragmatis-media" }
   ],
   "vars": {
     "CONTACT_FROM": "Pragmatis <web@pragmatis.com.co>",

@@ -15,8 +15,8 @@ export function Projects() {
     <section id="proyectos" className="bg-tinta py-16 text-white md:py-28">
       <div className="container">
         <Reveal>
-          <p className="text-sm font-medium text-paramo-luz">Proyectos</p>
-          <h2 className="mt-3 max-w-xl text-3xl font-semibold tracking-tight md:text-4xl">Software que ya está funcionando.</h2>
+          <p className="text-sm font-medium text-paramo-luz">Clientes</p>
+          <h2 className="mt-3 max-w-xl text-3xl font-semibold tracking-tight md:text-4xl">Negocios que ya trabajan con Pragmatis.</h2>
         </Reveal>
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((p, i) => {

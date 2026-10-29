@@ -1,5 +1,7 @@
-import type { InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from "react";
+import { ImagePlus, X } from "lucide-react";
+import { useState, type ChangeEvent, type InputHTMLAttributes, type ReactNode, type TextareaHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
+import { errorMessage, uploadImage } from "./api";
 
 export const inputCls =
   "w-full rounded-xl border border-tinta/15 bg-white px-4 py-2.5 text-sm outline-none transition-colors placeholder:text-tinta/30 focus:border-paramo";
@@ -41,3 +43,47 @@ export const PageTitle = ({ title, children }: { title: string; children?: React
 
 export const ErrorBox = ({ message }: { message: string }) =>
   message ? <p role="alert" className="rounded-xl bg-red-50 px-4 py-3 text-sm text-error">{message}</p> : null;
+
+// Subir a R2 o pegar una URL. `value` vacío = sin imagen.
+export function ImageUpload({ label, hint, value, onChange }: { label: string; hint?: string; value: string; onChange: (url: string) => void }) {
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  const pick = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    setBusy(true);
+    setError("");
+    try {
+      onChange(await uploadImage(file));
+    } catch (err) {
+      setError(errorMessage(err));
+    } finally {
+      setBusy(false);
+    }
+  };
+  return (
+    <div className="text-sm">
+      <span className="mb-1.5 block font-medium">{label}</span>
+      <div className="flex items-center gap-3">
+        {value ? (
+          <div className="relative shrink-0">
+            <img src={value} alt="" className="h-16 w-24 rounded-lg bg-arena object-cover" />
+            <button type="button" onClick={() => onChange("")} className="absolute -right-2 -top-2 rounded-full bg-tinta p-0.5 text-white" aria-label="Quitar imagen"><X size={12} /></button>
+          </div>
+        ) : (
+          <div className="flex h-16 w-24 shrink-0 items-center justify-center rounded-lg bg-arena text-tinta/30"><ImagePlus size={20} /></div>
+        )}
+        <div className="min-w-0 flex-1 space-y-2">
+          <label className={cn("btn cursor-pointer bg-arena px-3 py-2", busy && "pointer-events-none opacity-60")}>
+            {busy ? "Subiendo…" : "Subir imagen"}
+            <input type="file" accept="image/png,image/jpeg,image/webp,image/avif" className="sr-only" onChange={pick} />
+          </label>
+          <input value={value} onChange={(e) => onChange(e.target.value)} placeholder="…o pega una URL https://" aria-label={`${label} (URL)`} className={cn(inputCls, "py-2")} />
+        </div>
+      </div>
+      {hint && <span className="mt-1 block text-xs text-tinta/50">{hint}</span>}
+      {error && <span role="alert" className="mt-1 block text-xs text-error">{error}</span>}
+    </div>
+  );
+}

@@ -6,7 +6,8 @@ export function Analytics() {
   const { pathname } = useLocation();
   const first = useRef(true);
   useEffect(() => {
-    if (pathname.startsWith("/admin")) return;
+    // Los enlaces de testimonio llevan un token privado: no deben quedar en las estadísticas.
+    if (pathname.startsWith("/admin") || pathname.startsWith("/testimonio/")) return;
     // El referrer externo solo aplica a la primera página de la visita.
     const body = JSON.stringify({ path: pathname, referrer: first.current ? document.referrer : "" });
     first.current = false;

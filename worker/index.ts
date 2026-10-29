@@ -1,9 +1,12 @@
 import { admin, login, logout, me } from "./auth";
 import { contact } from "./contact";
+import * as media from "./media";
 import * as posts from "./posts";
 import * as projects from "./projects";
 import { stats, track } from "./stats";
 import { subscribe } from "./subscribe";
+import * as templates from "./templates";
+import * as testimonials from "./testimonials";
 import { json, type Env, type Handler } from "./utils";
 
 type Route = [method: string, path: string, handler: Handler];
@@ -13,8 +16,13 @@ const routes: Route[] = [
   ["POST", "/api/subscribe", subscribe],
   ["POST", "/api/track", track],
   ["GET", "/api/projects", projects.listPublic],
+  ["GET", "/api/templates", templates.listPublic],
+  ["GET", "/api/testimonials", testimonials.listPublic],
+  ["GET", "/api/testimonials/invite/:token", testimonials.getInvite],
+  ["POST", "/api/testimonials/invite/:token", testimonials.submit],
   ["GET", "/api/posts", posts.listPublic],
   ["GET", "/api/posts/:slug", posts.getPublic],
+  ["GET", "/media/:key", media.serve],
 
   ["POST", "/api/admin/login", login],
   ["POST", "/api/admin/logout", logout],
@@ -25,6 +33,17 @@ const routes: Route[] = [
   ["POST", "/api/admin/projects/reorder", admin(projects.reorder)],
   ["PUT", "/api/admin/projects/:id", admin(projects.update)],
   ["DELETE", "/api/admin/projects/:id", admin(projects.remove)],
+  ["GET", "/api/admin/templates", admin(templates.listAdmin)],
+  ["POST", "/api/admin/templates", admin(templates.create)],
+  ["POST", "/api/admin/templates/reorder", admin(templates.reorder)],
+  ["PUT", "/api/admin/templates/:id", admin(templates.update)],
+  ["DELETE", "/api/admin/templates/:id", admin(templates.remove)],
+  ["GET", "/api/admin/testimonials", admin(testimonials.listAdmin)],
+  ["POST", "/api/admin/testimonials/invite", admin(testimonials.invite)],
+  ["POST", "/api/admin/testimonials/reorder", admin(testimonials.reorder)],
+  ["PUT", "/api/admin/testimonials/:id", admin(testimonials.update)],
+  ["DELETE", "/api/admin/testimonials/:id", admin(testimonials.remove)],
+  ["POST", "/api/admin/upload", admin(media.upload)],
   ["GET", "/api/admin/posts", admin(posts.listAdmin)],
   ["GET", "/api/admin/posts/:id", admin(posts.getAdmin)],
   ["POST", "/api/admin/posts", admin(posts.create)],
@@ -47,7 +66,7 @@ function match(pattern: string, pathname: string): Record<string, string> | null
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const { pathname } = new URL(request.url);
-    if (!pathname.startsWith("/api/")) return env.ASSETS.fetch(request);
+    if (!pathname.startsWith("/api/") && !pathname.startsWith("/media/")) return env.ASSETS.fetch(request);
 
     let pathMatched = false;
     for (const [method, pattern, handler] of routes) {

@@ -1,4 +1,4 @@
-import { BarChart3, ExternalLink, FolderKanban, LogOut, Newspaper } from "lucide-react";
+import { BarChart3, ExternalLink, FolderKanban, LayoutTemplate, LogOut, MessageSquareQuote, Newspaper } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { NavLink, Route, Routes } from "react-router-dom";
@@ -10,10 +10,14 @@ import { PostEditor } from "./PostEditor";
 import { Posts } from "./Posts";
 import { Projects } from "./Projects";
 import { Stats } from "./Stats";
+import { Templates } from "./Templates";
+import { Testimonials } from "./Testimonials";
 
 const sections = [
   { to: "/admin", label: "Estadísticas", icon: BarChart3, end: true },
+  { to: "/admin/plantillas", label: "Plantillas", icon: LayoutTemplate },
   { to: "/admin/proyectos", label: "Proyectos", icon: FolderKanban },
+  { to: "/admin/testimonios", label: "Testimonios", icon: MessageSquareQuote },
   { to: "/admin/blog", label: "Blog", icon: Newspaper },
 ];
 
@@ -60,7 +64,9 @@ export default function AdminApp() {
           <main className="min-w-0 p-5 md:p-10">
             <Routes>
               <Route index element={<Stats />} />
+              <Route path="plantillas" element={<Templates />} />
               <Route path="proyectos" element={<Projects />} />
+              <Route path="testimonios" element={<Testimonials />} />
               <Route path="blog" element={<Posts />} />
               <Route path="blog/nuevo" element={<PostEditor />} />
               <Route path="blog/:id" element={<PostEditor />} />
