@@ -1,7 +1,7 @@
 import { useId } from "react";
 import { site } from "@/config/site";
 
-// Símbolo "Ascenso". Geometría y degradados: brand/03-logo-final (ver guía de marca).
+// Símbolo "Ascenso". Geometría y degradados según la guía de marca (kit brand/, fuera del repo).
 const SYMBOL = "M8 57H27V43H41V29H55V6H45V19H31V33H17V47H8Z";
 
 const gradients = {

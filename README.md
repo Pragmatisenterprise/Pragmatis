@@ -58,7 +58,7 @@ El diseño parte de una plantilla de landing SaaS oscura (secciones alternadas e
 | Formulario de contacto + newsletter (Worker de Cloudflare + Resend) | ✅ Listo en código — falta configurar las claves y desplegar en Cloudflare |
 | SEO básico: Open Graph (PNG 1200×630), `robots.txt`, `sitemap.xml` | ✅ Listo |
 | CI (lint + build en cada push/PR) | ✅ Listo |
-| Identidad de marca (logo, paleta, tipografía, guía) en `brand/` | ✅ Listo |
+| Identidad de marca (logo, paleta, tipografía, guía) | ✅ Listo — el kit `brand/` se comparte fuera del repo |
 | Contenido real | ⏳ Pendiente |
 | Blog con artículos reales y páginas internas | ⏳ Pendiente — hoy son tarjetas de ejemplo |
 | Despliegue, dominio y analítica | ⏳ Pendiente |
@@ -112,7 +112,7 @@ El front es estático (`dist/`). Las claves de Resend solo existen en el Worker 
 - Hero con tarjetas, orbe animado y gráfica en SVG/CSS (sin imágenes pesadas)
 - Paleta Páramo en `tailwind.config.ts`: tinta, papel, arena, verde páramo y maíz
 - Space Grotesk (títulos), Inter Tight (texto) y JetBrains Mono (datos), desde Google Fonts
-- Favicon, ícono de app y tarjeta Open Graph generados desde `brand/`
+- Favicon, ícono de app y tarjeta Open Graph generados desde el kit de marca
 
 </td>
 <td valign="top" width="50%">
@@ -155,7 +155,6 @@ pragmatis/
 │   ├── subscribe.ts        # POST: alta en la audiencia del newsletter
 │   └── utils.ts
 ├── .github/workflows/ci.yml
-├── brand/                  # identidad de marca: estudio, logo, mockups, guía y tokens
 ├── public/                 # favicon, íconos, og-image.png, logo de firma, robots.txt, sitemap.xml
 ├── src/
 │   ├── components/
@@ -222,9 +221,9 @@ Las claves nunca van en el repo ni en variables del front (`VITE_*`).
 ## Personalización
 
 - **Nombre, correo, URL, dirección y menú:** `src/config/site.ts`. El `<title>` y las metaetiquetas viven en `index.html`.
-- **Colores y animaciones:** `tailwind.config.ts` (`tinta`, `papel`, `arena`, `paramo`, `maiz`…). La fuente de verdad es `brand/06-tokens/tokens.css`; las reglas de uso están en `brand/05-guia/guia-de-marca.html`.
+- **Colores y animaciones:** `tailwind.config.ts` (`tinta`, `papel`, `arena`, `paramo`, `maiz`…). Las reglas de uso y los tokens CSS están en el kit de marca (`brand/`, ignorada por git y compartida fuera del repo).
 - **Textos de cada sección:** arreglos al inicio de cada componente en `src/components/`.
-- **Logo:** `src/components/Logo.tsx` (símbolo en línea) y los archivos de `brand/03-logo-final/`. Para regenerar variantes con otros colores: `brand/03-logo-final/_fuente/generar.py`.
+- **Logo:** `src/components/Logo.tsx` (símbolo en línea) Las variantes del logo y el script para regenerarlas están en el kit de marca (`brand/03-logo-final/`).
 
 ## Despliegue
 

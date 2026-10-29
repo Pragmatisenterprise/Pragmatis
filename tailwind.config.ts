@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss";
 
-// Paleta Páramo. Fuente de verdad: brand/06-tokens/tokens.css (contrastes en brand/05-guia).
+// Paleta Páramo. Tokens y contrastes en el kit de marca (brand/, fuera del repo).
 export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {

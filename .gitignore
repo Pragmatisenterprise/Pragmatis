@@ -27,3 +27,6 @@ dist-ssr
 *.tsbuildinfo
 .dev.vars
 .wrangler
+
+# Identidad de marca: se comparte fuera del repo
+brand/
