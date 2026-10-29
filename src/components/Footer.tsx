@@ -58,7 +58,7 @@ export function Footer() {
                 <button className="btn-primary" disabled={state === "sending"}>Suscribir</button>
               </div>
             )}
-            {state === "error" && <p role="alert" className="mt-2 text-sm text-red-400">No se pudo suscribir. Inténtalo de nuevo.</p>}
+            {state === "error" && <p role="alert" className="mt-2 text-sm text-error-oscuro">No se pudo suscribir. Inténtalo de nuevo.</p>}
           </form>
         </div>
         <p className="container mt-14 text-xs text-gris-oscuro">© {new Date().getFullYear()} {site.name}. Todos los derechos reservados.</p>

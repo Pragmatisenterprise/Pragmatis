@@ -99,7 +99,7 @@ export function Projects() {
               </div>
               <Badge on={!!p.published} yes="Visible" no="Oculto" />
               <button className="p-2 text-tinta/50 hover:text-tinta" onClick={() => { setError(""); setDraft({ ...p, published: !!p.published }); }} aria-label={`Editar ${p.title}`}><Pencil size={16} /></button>
-              <button className="p-2 text-tinta/50 hover:text-red-600" onClick={() => remove(p)} aria-label={`Eliminar ${p.title}`}><Trash2 size={16} /></button>
+              <button className="p-2 text-tinta/50 hover:text-error" onClick={() => remove(p)} aria-label={`Eliminar ${p.title}`}><Trash2 size={16} /></button>
             </li>
           ))}
         </ul>

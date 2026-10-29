@@ -21,6 +21,7 @@ export default {
         "gris-oscuro": "#A7AFA8",
         paramo: { DEFAULT: "#1C5A43", hondo: "#14432F", puente: "#3C8C68", luz: "#6CC19A", suave: "#DCEBE2" },
         maiz: { DEFAULT: "#E3B23C", claro: "#EDC463", ocre: "#A87B12", texto: "#7E5E00", suave: "#F7EBCB" },
+        error: { DEFAULT: "#B42318", oscuro: "#F87171" },
       },
       borderRadius: { "4xl": "2rem" },
       keyframes: {

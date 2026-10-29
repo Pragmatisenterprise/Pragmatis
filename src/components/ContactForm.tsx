@@ -55,7 +55,7 @@ export function ContactForm() {
         {status === "sending" ? "Enviando…" : "Enviar mensaje"}
       </button>
       {status === "error" && (
-        <p role="alert" className="text-sm text-red-400">
+        <p role="alert" className="text-sm text-error-oscuro">
           {error}. Puedes escribirnos a <a className="underline" href={`mailto:${site.email}`}>{site.email}</a>.
         </p>
       )}

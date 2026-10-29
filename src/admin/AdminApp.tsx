@@ -39,7 +39,7 @@ export default function AdminApp() {
         <Login onLogin={() => setAuth("in")} />
       ) : (
         <div className="min-h-screen bg-arena md:grid md:grid-cols-[240px_1fr]">
-          <aside className="bg-black text-white md:sticky md:top-0 md:flex md:h-screen md:flex-col md:p-5">
+          <aside className="bg-tinta text-white md:sticky md:top-0 md:flex md:h-screen md:flex-col md:p-5">
             <div className="flex items-center justify-between px-4 py-3 md:px-2 md:py-0">
               <Logo />
               <button onClick={logout} className="p-2 text-white/60 hover:text-white md:hidden" aria-label="Cerrar sesión"><LogOut size={18} /></button>

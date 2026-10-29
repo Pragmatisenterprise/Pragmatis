@@ -12,7 +12,7 @@ export function Projects() {
   if (!projects.length) return null;
 
   return (
-    <section id="proyectos" className="bg-black py-16 text-white md:py-28">
+    <section id="proyectos" className="bg-tinta py-16 text-white md:py-28">
       <div className="container">
         <Reveal>
           <p className="text-sm font-medium text-paramo-luz">Proyectos</p>

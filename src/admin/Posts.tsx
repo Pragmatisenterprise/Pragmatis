@@ -43,7 +43,7 @@ export function Posts() {
               <Badge on={!!p.published} yes="Publicado" no="Borrador" />
               {!!p.published && <a href={`/blog/${p.slug}`} target="_blank" rel="noopener noreferrer" className="p-2 text-tinta/50 hover:text-tinta" aria-label={`Ver ${p.title}`}><ExternalLink size={16} /></a>}
               <Link to={`/admin/blog/${p.id}`} className="p-2 text-tinta/50 hover:text-tinta" aria-label={`Editar ${p.title}`}><Pencil size={16} /></Link>
-              <button className="p-2 text-tinta/50 hover:text-red-600" onClick={() => remove(p)} aria-label={`Eliminar ${p.title}`}><Trash2 size={16} /></button>
+              <button className="p-2 text-tinta/50 hover:text-error" onClick={() => remove(p)} aria-label={`Eliminar ${p.title}`}><Trash2 size={16} /></button>
             </li>
           ))}
         </ul>

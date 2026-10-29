@@ -23,7 +23,7 @@ export function Login({ onLogin }: { onLogin: () => void }) {
   };
 
   return (
-    <main className="grid min-h-screen place-items-center bg-black px-6">
+    <main className="grid min-h-screen place-items-center bg-tinta px-6">
       <form onSubmit={submit} className="w-full max-w-sm space-y-5 rounded-3xl border border-white/10 bg-white/5 p-8 text-white">
         <Logo />
         <h1 className="text-xl font-semibold">Panel de administración</h1>
