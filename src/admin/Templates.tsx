@@ -2,18 +2,26 @@ import { ArrowDown, ArrowUp, ExternalLink, Pencil, Plus, Trash2 } from "lucide-r
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { formatCop, slugify } from "@/lib/format";
 import { kindLabel } from "@/lib/templates";
-import type { Template } from "@/lib/types";
+import type { Module, Template } from "@/lib/types";
 import { adminApi, errorMessage } from "./api";
 import { Badge, Check, ErrorBox, Field, ImageUpload, PageTitle, TextArea, TextInput, inputCls } from "./ui";
 
 // `features` se edita como texto (una por línea) y se convierte en arreglo al guardar.
+// `modules`: id del módulo -> incluido en la base (true) o adicional (false); ausente = no aplica.
 type Draft = Pick<Template, "slug" | "name" | "business" | "kind" | "summary" | "thumb_url" | "demo_url"> & {
-  id?: number; features: string; price_from: string; published: boolean;
+  id?: number; features: string; price_from: string; published: boolean; modules: Record<number, boolean>;
 };
-const empty: Draft = { slug: "", name: "", business: "", kind: "web", summary: "", features: "", price_from: "", thumb_url: "", demo_url: "", published: true };
+const empty: Draft = { slug: "", name: "", business: "", kind: "web", summary: "", features: "", price_from: "", thumb_url: "", demo_url: "", published: true, modules: {} };
+
+const moduleStates = [
+  { value: "", label: "No aplica" },
+  { value: "included", label: "Incluido" },
+  { value: "addon", label: "Adicional" },
+];
 
 export function Templates() {
   const [items, setItems] = useState<Template[] | null>(null);
+  const [modules, setModules] = useState<Module[]>([]);
   const [draft, setDraft] = useState<Draft | null>(null);
   const [slugTouched, setSlugTouched] = useState(false);
   const [error, setError] = useState("");
@@ -23,6 +31,9 @@ export function Templates() {
     adminApi<Template[]>("/api/admin/templates").then(setItems).catch((e) => setError(errorMessage(e)));
   }, []);
   useEffect(load, [load]);
+  useEffect(() => {
+    adminApi<Module[]>("/api/admin/modules").then(setModules).catch((e) => setError(errorMessage(e)));
+  }, []);
 
   const edit = (d: Draft, existing: boolean) => {
     setError("");
@@ -39,6 +50,7 @@ export function Templates() {
       ...draft,
       features: draft.features.split("\n").map((f) => f.trim()).filter(Boolean),
       price_from: Number(draft.price_from.replace(/\D/g, "") || 0),
+      modules: Object.entries(draft.modules).map(([id, included]) => ({ id: Number(id), included })),
     };
     try {
       await adminApi(draft.id ? `/api/admin/templates/${draft.id}` : "/api/admin/templates", { method: draft.id ? "PUT" : "POST", body });
@@ -75,6 +87,12 @@ export function Templates() {
   };
 
   const set = (k: keyof Draft) => (e: { target: { value: string } }) => setDraft({ ...draft!, [k]: e.target.value });
+  const setModule = (id: number, value: string) => {
+    const next = { ...draft!.modules };
+    if (value) next[id] = value === "included";
+    else delete next[id];
+    setDraft({ ...draft!, modules: next });
+  };
   const setName = (e: { target: { value: string } }) =>
     setDraft({ ...draft!, name: e.target.value, ...(slugTouched ? {} : { slug: slugify(e.target.value) }) });
 
@@ -103,6 +121,26 @@ export function Templates() {
             </div>
             <Field label="Descripción" hint="Una o dos frases: qué resuelve para el negocio (máx. 300)"><TextArea rows={2} maxLength={300} value={draft.summary} onChange={set("summary")} /></Field>
             <Field label="Características" hint="Una por línea, máx. 12. Ej. Reservas en línea"><TextArea rows={4} value={draft.features} onChange={set("features")} /></Field>
+            {modules.length > 0 && (
+              <fieldset>
+                <legend className="text-sm font-medium">Módulos</legend>
+                <p className="text-xs text-tinta/50">Incluido = viene en el precio base. Adicional = se muestra en "Puedes agregar" con su precio.</p>
+                <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                  {modules.map((m) => (
+                    <label key={m.id} className="flex items-center justify-between gap-3 rounded-xl bg-arena px-3 py-2 text-sm">
+                      <span className="truncate">{m.name}{!m.published && <span className="text-tinta/40"> (oculto)</span>}</span>
+                      <select
+                        className="rounded-lg border border-tinta/10 bg-white px-2 py-1 text-xs"
+                        value={m.id in draft.modules ? (draft.modules[m.id] ? "included" : "addon") : ""}
+                        onChange={(e) => setModule(m.id, e.target.value)}
+                      >
+                        {moduleStates.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
+                      </select>
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+            )}
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label="Precio desde (COP)" hint="Solo números. Vacío o 0 = no se muestra precio.">
                 <TextInput inputMode="numeric" value={draft.price_from} onChange={set("price_from")} placeholder="450000" />
@@ -140,7 +178,10 @@ export function Templates() {
               <Badge on={!!t.published} yes="Visible" no="Oculta" />
               <button
                 className="p-2 text-tinta/50 hover:text-tinta"
-                onClick={() => edit({ ...t, features: t.features.join("\n"), price_from: t.price_from ? String(t.price_from) : "", published: !!t.published }, true)}
+                onClick={() => edit({
+                  ...t, features: t.features.join("\n"), price_from: t.price_from ? String(t.price_from) : "", published: !!t.published,
+                  modules: Object.fromEntries(t.modules.map((m) => [m.id, m.included])),
+                }, true)}
                 aria-label={`Editar ${t.name}`}
               ><Pencil size={16} /></button>
               <button className="p-2 text-tinta/50 hover:text-error" onClick={() => remove(t)} aria-label={`Eliminar ${t.name}`}><Trash2 size={16} /></button>

@@ -1,11 +1,11 @@
 import { AnimatePresence, motion, useReducedMotion, type PanInfo } from "framer-motion";
-import { AppWindow, ArrowRight, ChevronLeft, ChevronRight, Globe, Play, Smartphone } from "lucide-react";
+import { AppWindow, ArrowRight, Check, ChevronLeft, ChevronRight, Globe, Play, Plus, Smartphone } from "lucide-react";
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { useMatch, useNavigate } from "react-router-dom";
-import { templateIncludes } from "@/config/site";
+import { carePlan, renewalYearly, templateIncludes } from "@/config/site";
 import { api } from "@/lib/api";
 import { formatCop } from "@/lib/format";
-import { kindLabel, wantUrl } from "@/lib/templates";
+import { kindLabel, moduleIcon, wantUrl } from "@/lib/templates";
 import type { Template } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { LogoSymbol } from "./Logo";
@@ -151,6 +151,13 @@ function StaticList({ items, active, setActive }: { items: Template[]; active: n
 }
 
 function Details({ t, onOpen }: { t: Template; onOpen: (t: Template) => void }) {
+  // Módulos adicionales que el visitante marca; viajan en el mensaje de WhatsApp.
+  const [extras, setExtras] = useState<string[]>([]);
+  const included = t.modules.filter((m) => m.included);
+  const addons = t.modules.filter((m) => !m.included);
+  const want = wantUrl(t, t.modules.filter((m) => extras.includes(m.slug)).map((m) => m.name));
+  const toggle = (slug: string) => setExtras((xs) => (xs.includes(slug) ? xs.filter((x) => x !== slug) : [...xs, slug]));
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.3 }}
@@ -166,10 +173,49 @@ function Details({ t, onOpen }: { t: Template; onOpen: (t: Template) => void }) 
         {t.kind === "app" && <p className="mt-3 text-sm text-gris-oscuro">Se instala en el celular desde el navegador, sin pasar por tiendas de apps.</p>}
         <div className="mt-6 flex flex-wrap items-center gap-3">
           {t.demo_url && <button type="button" onClick={() => onOpen(t)} className="btn-primary"><Play size={16} />Ver demo en vivo</button>}
-          <a href={wantUrl(t)} target={wantUrl(t).startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="btn border border-papel/15 text-papel hover:border-paramo-luz">
+          <a href={want} target={want.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="btn border border-papel/15 text-papel hover:border-paramo-luz">
             La quiero para mi negocio <ArrowRight size={16} />
           </a>
         </div>
+        {included.length > 0 && (
+          <div className="mt-8">
+            <p className="text-sm font-medium text-papel">Incluye</p>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {included.map((m) => {
+                const Icon = moduleIcon(m.slug);
+                return <li key={m.id} title={m.summary} className="flex items-center gap-1.5 rounded-full bg-paramo/25 px-3 py-1 text-xs text-papel"><Icon size={14} className="text-paramo-luz" />{m.name}</li>;
+              })}
+            </ul>
+          </div>
+        )}
+        {addons.length > 0 && (
+          <div className="mt-6">
+            <p className="text-sm font-medium text-papel">Puedes agregar</p>
+            <p className="text-xs text-gris-oscuro">Marca los que te interesan y te los cotizamos juntos.</p>
+            <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+              {addons.map((m) => {
+                const Icon = moduleIcon(m.slug);
+                const on = extras.includes(m.slug);
+                return (
+                  <li key={m.id}>
+                    <button
+                      type="button" aria-pressed={on} onClick={() => toggle(m.slug)}
+                      className={cn("flex h-full w-full gap-3 rounded-2xl border p-3 text-left transition-colors", on ? "border-paramo-luz bg-paramo/15" : "border-papel/10 hover:border-papel/30")}
+                    >
+                      <Icon size={18} className="mt-0.5 shrink-0 text-paramo-luz" />
+                      <span className="min-w-0 flex-1">
+                        <span className="block text-sm text-papel">{m.name}</span>
+                        {m.summary && <span className="block text-xs text-gris-oscuro">{m.summary}</span>}
+                        {m.price > 0 && <span className="mt-1 block font-mono text-xs text-maiz">+ {formatCop(m.price)}</span>}
+                      </span>
+                      {on ? <Check size={16} className="shrink-0 text-paramo-luz" /> : <Plus size={16} className="shrink-0 text-papel/50" />}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
       </div>
       <div>
         {t.price_from > 0 && (
@@ -287,6 +333,28 @@ export function Templates() {
             ))}
           </div>
         </div>
+
+        <Reveal className="mx-auto mt-16 grid max-w-4xl gap-8 rounded-3xl border border-maiz/30 bg-grafito/60 p-6 md:mt-20 md:grid-cols-[1fr_1.3fr] md:p-8">
+          <div>
+            <p className="text-sm font-medium text-maiz">Opcional</p>
+            <h3 className="mt-2 text-2xl font-semibold tracking-tight">{carePlan.name}</h3>
+            <p className="mt-3 text-sm text-gris-oscuro">Para que no tengas que pensar en tu plataforma: nosotros la cuidamos y la seguimos mejorando cada mes.</p>
+            {carePlan.priceMonthly > 0 && (
+              <p className="mt-6 text-sm text-gris-oscuro"><span className="block font-mono text-3xl text-maiz">{formatCop(carePlan.priceMonthly)}</span><span className="text-xs">Al mes · COP</span></p>
+            )}
+          </div>
+          <div>
+            <ul className="space-y-2.5 text-sm text-papel/85">
+              {carePlan.includes.map((it) => (
+                <li key={it} className="flex gap-2.5"><Check size={18} className="shrink-0 text-paramo-luz" />{it}</li>
+              ))}
+            </ul>
+            <p className="mt-6 text-xs text-gris-oscuro">
+              Soporte es cuando algo falla; un cambio es algo nuevo que nos pides. Sin el plan, desde el segundo año el hosting y el dominio se renuevan cada año
+              {renewalYearly > 0 && <> por <span className="font-mono text-papel/80">{formatCop(renewalYearly)}</span></>}.
+            </p>
+          </div>
+        </Reveal>
       </div>
 
       <AnimatePresence>{previewing && <TemplatePreview t={previewing} onClose={close} />}</AnimatePresence>

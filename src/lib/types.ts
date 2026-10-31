@@ -42,6 +42,19 @@ export interface Stats {
   content: { projects: number; posts: number };
 }
 
+export interface Module {
+  id: number;
+  slug: string;
+  name: string;
+  summary: string;
+  price: number;
+  sort_order?: number;
+  published?: number;
+}
+
+// Módulo dentro de una plantilla: `included` = viene en la base; si no, se puede agregar.
+export type TemplateModule = Pick<Module, "id" | "slug" | "name" | "summary" | "price"> & { included: boolean };
+
 export interface Template {
   id: number;
   slug: string;
@@ -53,6 +66,7 @@ export interface Template {
   price_from: number;
   thumb_url: string;
   demo_url: string;
+  modules: TemplateModule[];
   sort_order?: number;
   published?: number;
 }

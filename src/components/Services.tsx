@@ -9,7 +9,7 @@ const services = [
     eyebrow: "Para negocios locales",
     title: "Plantillas listas para tu negocio",
     text: "Portales web y apps ya probadas para barberías, restaurantes, tiendas de barrio, droguerías y más. Las adaptamos a tu marca y las dejamos funcionando.",
-    points: ["Pago único, sin mensualidades", "Reservas, pedidos, catálogo o inventario según tu negocio", "Editable al 100 %: si algo no te sirve, lo cambiamos", "Dominio y hosting incluidos el primer año"],
+    points: ["Pago único. Plan mensual de acompañamiento opcional", "Reservas, pedidos, catálogo o inventario según tu negocio", "Editable al 100 %: si algo no te sirve, lo cambiamos", "Dominio y hosting incluidos el primer año"],
     cta: { label: "Ver plantillas", href: "#plantillas" },
   },
   {

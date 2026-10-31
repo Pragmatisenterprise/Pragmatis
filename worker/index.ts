@@ -1,6 +1,7 @@
 import { admin, login, logout, me } from "./auth";
 import { contact } from "./contact";
 import * as media from "./media";
+import * as modules from "./modules";
 import * as posts from "./posts";
 import * as projects from "./projects";
 import { stats, track } from "./stats";
@@ -33,6 +34,11 @@ const routes: Route[] = [
   ["POST", "/api/admin/projects/reorder", admin(projects.reorder)],
   ["PUT", "/api/admin/projects/:id", admin(projects.update)],
   ["DELETE", "/api/admin/projects/:id", admin(projects.remove)],
+  ["GET", "/api/admin/modules", admin(modules.listAdmin)],
+  ["POST", "/api/admin/modules", admin(modules.create)],
+  ["POST", "/api/admin/modules/reorder", admin(modules.reorder)],
+  ["PUT", "/api/admin/modules/:id", admin(modules.update)],
+  ["DELETE", "/api/admin/modules/:id", admin(modules.remove)],
   ["GET", "/api/admin/templates", admin(templates.listAdmin)],
   ["POST", "/api/admin/templates", admin(templates.create)],
   ["POST", "/api/admin/templates/reorder", admin(templates.reorder)],
